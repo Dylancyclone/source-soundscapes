@@ -20,11 +20,9 @@ export default class Example extends React.Component {
 
   componentDidMount() {
     var soundscapes = {};
-    console.log(Object.keys(Items.hl2))
     Object.keys(Items.hl2).forEach((e) => {
       soundscapes = {...soundscapes, ...this.parseSoundscape(Items.hl2[e])}
     })
-    console.log(JSON.stringify(soundscapes))
     this.setState({
       soundscapes:soundscapes,
     })
@@ -39,22 +37,18 @@ export default class Example extends React.Component {
     var channelRegex = /"(playrandom)":|"(playlooping)":|"(playsoundscape)":/;
     var objectRegex = /("[a-zA-z._0-9]+")([{[])/g;
     var keyValueRegex = /("[a-zA-z._0-9]+")("[a-zA-z.,_0-9/]+")/g;
-    var playRandomRegex = /"playrandom"/g;
     var rndWaveRegex = /"rndwave":{([a-zA-Z.0-9,:/"_]+)}/g;
     var waveRegex = /"wave":("[a-zA-z.,_0-9/]+")/g;
     var objectCommaRegex = /[}\]]"/g;
     var cleanUpRegex = /,([}\]])/g;
 
     //For future reference, this line may cause problems in some edge case.
-    //Currently, the only place I've seen asterisks in a soundscape files are in places like this:
-    //"wave"		"*ambient/atmosphere/plaza_amb.wav"
-    //Where I can't see the asterisk even doing anything and it kinda just breaks the path.
-    //I cannot find any mention of asterisks on the VDC page, nor any mention online that says it functions
-    //differently from a path without asterisks. I don't think asterisks can even be used as wildcards in this
-    //context, so I think it is safe to remove them.
-    //Just note that this might be a problem if I'm wrong.
+    //These characters represent "Sound Characters" Read about them here:
+    //https://developer.valvesoftware.com/wiki/Soundscripts#Sound_Characters
+    //Since most of them have no impact on this site, we just remove them
+    //so that we get clean paths
 
-    text = text.replace(/[*#)]/g,""); //Remove all illegal characters
+    text = text.replace(/[*#)(><^@$!?]/g,""); //Remove all Sound Characters
     
     text = text.replace(/\/\/(.+)/g,""); //Remove all commented lines
     text = text.replace(/[\s\n]/g,""); //Remove all whitespaces and newlines
@@ -73,7 +67,6 @@ export default class Example extends React.Component {
 
         section = section.replace(objectRegex,"$1:$2");
         section = section.replace(keyValueRegex,"$1:$2,");
-        //section = section.replace(playRandomRegex,"\"playrandom-"+uuidv4()+"\""); 
         section = section.replace(objectCommaRegex,"},\""); 
 
         var channels = [];
@@ -167,6 +160,8 @@ export default class Example extends React.Component {
     console.log(this.state.soundscapes[soundscape])
     this.channels.forEach((channel) => {channel.pause();})
     this.timeouts.forEach((timeout) => {clearTimeout(timeout);})
+    this.channels = [];
+    this.timeouts = [];
   }
 
   renderCurrentSoundscape() {
@@ -177,16 +172,15 @@ export default class Example extends React.Component {
     );
   }
 
-  renderChannels() {
+  renderChannels(soundscape) {
     var text = [];
-    this.channels = [];
-    this.timeouts = [];
-		this.state.soundscapes[this.state.currentSoundscape].channels.forEach((channel, index) => {
-      if (this.channels[index]) this.channels[index].stop(); //In case something is already there and hasn't been stopped
-
+		this.state.soundscapes[soundscape].channels.forEach((channel, i) => {
+      //if (this.channels[index]) this.channels[index].stop(); //In case something is already there and hasn't been stopped
+      
       if (channel.type==='playlooping')
       {
-        this.channels[index] = new Audio("/sound/"+channel.wave);
+        var index = this.channels.push(new Audio("/sound/"+channel.wave))-1;
+        //this.channels[index] = new Audio("/sound/"+channel.wave);
         if (/,/.test(channel.volume)) {
           this.channels[index].volume = this.randomBetween(channel.volume.split(',')[0],channel.volume.split(',')[1]);
         }
@@ -201,7 +195,6 @@ export default class Example extends React.Component {
           }
         };
         this.channels[index].play();
-        console.log(this.channels[index])
         text.push(
           <div key={JSON.stringify(channel)}>
             <p>{JSON.stringify(channel)}</p>
@@ -210,7 +203,8 @@ export default class Example extends React.Component {
       }
       if (channel.type==='playrandom')
       {
-        this.channels[index] = new Audio("/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)]);
+        var index = this.channels.push(new Audio("/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)]))-1;
+        //this.channels[index] = new Audio("/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)]);
         if (/,/.test(channel.volume)) {
           this.channels[index].volume = this.randomBetween(parseFloat(channel.volume.split(',')[0]),parseFloat(channel.volume.split(',')[1]));
         }
@@ -219,6 +213,12 @@ export default class Example extends React.Component {
           this.channels[index].volume = channel.volume;
         }
         var that = this; //I knew this day would come
+        this.channels[index].onerror = function() {
+          console.log("Error! Sound not found: " + this.src);
+          this.src="/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
+          this.currentTime = 0;
+          this.play();
+        };
         this.channels[index].addEventListener('ended', function () {
           that.timeouts.push(setTimeout(function () {
             this.src="/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
@@ -234,12 +234,16 @@ export default class Example extends React.Component {
           )
         })
         //this.channels[index].play();
-        console.log(this.channels[index])
         text.push(
             <div key={JSON.stringify(channel)}>
             <p>{JSON.stringify(channel)}</p>
           </div>
         );
+      }
+      
+      if (channel.type==='playsoundscape')
+      {
+        text.push(this.renderChannels(channel.name))
       }
 		});
 		//console.log(channels)
@@ -262,7 +266,7 @@ export default class Example extends React.Component {
             onSoundscapeSelected={this.handleSoundscapeSelected}
           />
           {this.state.currentSoundscape && this.renderCurrentSoundscape()}
-          {this.state.currentSoundscape !=='' && this.renderChannels()}
+          {this.state.currentSoundscape !=='' && this.renderChannels(this.state.currentSoundscape)}
         </div>
       );
     }

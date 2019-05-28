@@ -13,7 +13,7 @@ A work-in-progress website to play source engine soundscapes in a webbrowser. Th
 
 - [X] playlooping
 - [X] playrandom
-- [ ] playsoundscape
+- [X] playsoundscape
 - [ ] dsp
 - [ ] dsp_spatial
 - [ ] dsp_volume
@@ -37,3 +37,4 @@ A work-in-progress website to play source engine soundscapes in a webbrowser. Th
 - [ ] Mute Channel
 - [ ] Import Soundscape
 - [ ] Support Custom Environments
+- [ ] Smart Random Sounds?

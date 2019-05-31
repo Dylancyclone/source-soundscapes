@@ -1,4 +1,6 @@
 import React from 'react';
+import AudioPlayer from './screw/audioplayer';
+import EventEmitter from 'eventemitter3';
 import SoundscapeSelector from './SoundscapeSelector';
 
 import * as Items from './soundscapes';
@@ -122,7 +124,7 @@ export default class Example extends React.Component {
     rawFile.open("GET", file, false);
     rawFile.onreadystatechange = () => {
         if (rawFile.readyState === 4) {
-            if (rawFile.status === 200 || rawFile.status == 0) {
+            if (rawFile.status === 200 || rawFile.status === 0) {
                 var allText = rawFile.responseText;
                 console.log("allText: ", allText);
                 this.setState({
@@ -174,34 +176,74 @@ export default class Example extends React.Component {
 
   renderChannels(soundscape) {
     var text = [];
-		this.state.soundscapes[soundscape].channels.forEach((channel, i) => {
+		this.state.soundscapes[soundscape].channels.forEach(async (channel, i) => {
       //if (this.channels[index]) this.channels[index].stop(); //In case something is already there and hasn't been stopped
       
       if (channel.type==='playlooping')
       {
-        var index = this.channels.push(new Audio("/sound/"+channel.wave))-1;
-        //this.channels[index] = new Audio("/sound/"+channel.wave);
-        if (/,/.test(channel.volume)) {
-          this.channels[index].volume = this.randomBetween(channel.volume.split(',')[0],channel.volume.split(',')[1]);
+
+        var pitch;
+        if (/,/.test(channel.pitch)) {
+          pitch = this.randomBetween(channel.pitch.split(',')[0],channel.pitch.split(',')[1])/100;
         }
         else
         {
-          this.channels[index].volume = channel.volume;
+          pitch = channel.pitch/100;
         }
-        this.channels[index].ontimeupdate= function(i) {
-          if(this.currentTime > this.duration - 0.3){
-            this.currentTime = 0;
-            this.play();
-          }
-        };
-        this.channels[index].play();
-        text.push(
-          <div key={JSON.stringify(channel)}>
-            <p>{JSON.stringify(channel)}</p>
-          </div>
-        );
+        this.emitter = new EventEmitter();
+
+        var index = this.channels.push(new AudioPlayer({
+          emitter: this.emitter,
+          pitch: pitch,
+          tempo: 1,
+        }))-1;
+
+        this.emitter.on('stop', () => this.channels[index].seekPercent(0));
+
+        const reader = new FileReader();
+        fetch("/sound/"+channel.wave)
+          .then(resp => resp.blob())
+          .then(blob => {
+            reader.readAsArrayBuffer(blob);
+            reader.onload = async event => {
+              let buffer;
+              try {
+                  buffer = await this.channels[index].decodeAudioData(event.target.result);
+              } catch (err) {
+                console.log(err)
+                  return;
+              }
+
+              this.channels[index].setBuffer(buffer);
+              this.channels[index].play();
+            };
+          });
+
+
+
+        // var index = this.channels.push(new Audio("/sound/"+channel.wave))-1;
+        // //this.channels[index] = new Audio("/sound/"+channel.wave);
+        // if (/,/.test(channel.volume)) {
+        //   this.channels[index].volume = this.randomBetween(channel.volume.split(',')[0],channel.volume.split(',')[1]);
+        // }
+        // else
+        // {
+        //   this.channels[index].volume = channel.volume;
+        // }
+        // this.channels[index].ontimeupdate= function(i) {
+        //   if(this.currentTime > this.duration - 0.3){
+        //     this.currentTime = 0;
+        //     this.play();
+        //   }
+        // };
+        // this.channels[index].play();
+        // text.push(
+        //   <div key={JSON.stringify(channel)}>
+        //     <p>{JSON.stringify(channel)}</p>
+        //   </div>
+        // );
       }
-      if (channel.type==='playrandom')
+      if (channel.type==='playrandom' && false)
       {
         var index = this.channels.push(new Audio("/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)]))-1;
         //this.channels[index] = new Audio("/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)]);

@@ -12,8 +12,8 @@ A work-in-progress website to play source engine soundscapes in a webbrowser. Th
 #### Rules
 
 - [X] playlooping
-- [X] playrandom
-- [X] playsoundscape
+- [ ] playrandom
+- [ ] playsoundscape
 - [ ] dsp
 - [ ] dsp_spatial
 - [ ] dsp_volume
@@ -23,8 +23,8 @@ A work-in-progress website to play source engine soundscapes in a webbrowser. Th
 #### Keyvalues
 
 - [X] wave
-- [X] volume
-- [ ] pitch
+- [ ] volume
+- [X] pitch
 - [ ] position
 - [ ] origin
 - [ ] attenuation

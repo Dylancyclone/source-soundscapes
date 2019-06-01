@@ -183,7 +183,7 @@ export default class Example extends React.Component {
       {
         var volume;
         if (/,/.test(channel.volume)) {
-          volume = this.randomBetween(channel.volume.split(',')[0],channel.volume.split(',')[1]);
+          volume = this.randomBetween(parseFloat(channel.volume.split(',')[0]),parseFloat(channel.volume.split(',')[1]));
         }
         else
         {
@@ -192,7 +192,7 @@ export default class Example extends React.Component {
 
         var pitch;
         if (/,/.test(channel.pitch)) {
-          pitch = this.randomBetween(channel.pitch.split(',')[0],channel.pitch.split(',')[1])/100;
+          pitch = this.randomBetween(parseFloat(channel.pitch.split(',')[0]),parseFloat(channel.pitch.split(',')[1]))/100;
         }
         else
         {
@@ -207,7 +207,7 @@ export default class Example extends React.Component {
           volume: volume
         }))-1;
 
-        this.emitter.on('stop', () => this.channels[index].seekPercent(0));
+        this.emitter.on('end', () => this.channels[index].seekPercent(0));
 
         const reader = new FileReader();
         fetch("/sound/"+channel.wave)
@@ -233,44 +233,120 @@ export default class Example extends React.Component {
             </div>
           );
       }
-      if (channel.type==='playrandom' && false)
+      if (channel.type==='playrandom')
       {
-        var index = this.channels.push(new Audio("/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)]))-1;
-        //this.channels[index] = new Audio("/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)]);
+
+
+        var volume;
         if (/,/.test(channel.volume)) {
-          this.channels[index].volume = this.randomBetween(parseFloat(channel.volume.split(',')[0]),parseFloat(channel.volume.split(',')[1]));
+          volume = this.randomBetween(parseFloat(channel.volume.split(',')[0]),parseFloat(channel.volume.split(',')[1]));
         }
         else
         {
-          this.channels[index].volume = channel.volume;
+          volume = channel.volume;
         }
-        var that = this; //I knew this day would come
-        this.channels[index].onerror = function() {
-          console.log("Error! Sound not found: " + this.src);
-          this.src="/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
-          this.currentTime = 0;
-          this.play();
-        };
-        this.channels[index].addEventListener('ended', function () {
-          that.timeouts.push(setTimeout(function () {
-            this.src="/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
-            this.currentTime = 0;
-            this.play();
-          }.bind(this), that.randomBetween(parseFloat(channel.time.split(',')[0]),parseFloat(channel.time.split(',')[1]))*1000, this)
-          )
+
+        var pitch;
+        if (/,/.test(channel.pitch)) {
+          pitch = this.randomBetween(parseFloat(channel.pitch.split(',')[0]),parseFloat(channel.pitch.split(',')[1]))/100;
+        }
+        else
+        {
+          pitch = channel.pitch/100;
+        }
+        this.emitter = new EventEmitter();
+
+        var index = this.channels.push(new AudioPlayer({
+          emitter: this.emitter,
+          pitch: pitch,
+          tempo: 1,
+          volume: volume
+        }))-1;
+
+        //this.emitter.on('stop', () => this.channels[index].seekPercent(0));
+        this.emitter.on('err', () => {
+          var filename = "/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
+          fetch(filename)
+            .then(resp => resp.blob())
+            .then(blob => {
+              reader.readAsArrayBuffer(blob);
+              reader.onload = async event => {
+                let buffer;
+                try {
+                    buffer = await this.channels[index].decodeAudioData(event.target.result);
+                } catch (err) {
+                  console.log("Error: " + err + ", with file: " + filename + ". Does file exist?")
+                  this.emitter.emit('err')
+                  return;
+                }
+
+                await this.channels[index].setBuffer(buffer);
+                this.channels[index].seekPercent(0);
+                this.timeouts.push(setTimeout(function () {
+                    this.channels[index].play();
+                  }.bind(this), this.randomBetween(parseFloat(channel.time.split(',')[0]),parseFloat(channel.time.split(',')[1]))*1000, this)
+                )
+              };
+            });
         })
-        this.channels[index].addEventListener('loadstart', function () {
-          that.timeouts.push(setTimeout(function () {
-            this.play();
-          }.bind(this), that.randomBetween(parseFloat(channel.time.split(',')[0]),parseFloat(channel.time.split(',')[1]))*1000, this)
-          )
+        
+        this.emitter.on('end', () => {
+          this.channels[index].seekPercent(0);
+          this.channels[index].pause();
+          
+          var filename = "/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
+          fetch(filename)
+            .then(resp => resp.blob())
+            .then(blob => {
+              reader.readAsArrayBuffer(blob);
+              reader.onload = async event => {
+                let buffer;
+                try {
+                    buffer = await this.channels[index].decodeAudioData(event.target.result);
+                } catch (err) {
+                  console.log("Error: " + err + ", with file: " + filename + ". Does file exist?")
+                  this.emitter.emit('err')
+                  return;
+                }
+
+                await this.channels[index].setBuffer(buffer);
+                this.channels[index].seekPercent(0);
+                this.timeouts.push(setTimeout(function () {
+                    this.channels[index].play();
+                  }.bind(this), this.randomBetween(parseFloat(channel.time.split(',')[0]),parseFloat(channel.time.split(',')[1]))*1000, this)
+                )
+              };
+            });
         })
-        //this.channels[index].play();
-        text.push(
+
+        const reader = new FileReader();
+        var filename = "/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
+        fetch(filename)
+          .then(resp => resp.blob())
+          .then(blob => {
+            reader.readAsArrayBuffer(blob);
+            reader.onload = async event => {
+              let buffer;
+              try {
+                buffer = await this.channels[index].decodeAudioData(event.target.result);
+              } catch (err) {
+                console.log("Error: " + err + ", with file: " + filename + ". Does file exist?")
+                this.emitter.emit('err')
+                return;
+              }
+
+              this.channels[index].setBuffer(buffer);
+              this.timeouts.push(setTimeout(function () {
+                  this.channels[index].play();
+                }.bind(this), this.randomBetween(parseFloat(channel.time.split(',')[0]),parseFloat(channel.time.split(',')[1]))*1000, this)
+              )
+            };
+          });
+          text.push(
             <div key={JSON.stringify(channel)}>
-            <p>{JSON.stringify(channel)}</p>
-          </div>
-        );
+              <p>{JSON.stringify(channel)}</p>
+            </div>
+          );
       }
       
       if (channel.type==='playsoundscape')

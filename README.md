@@ -12,8 +12,8 @@ A work-in-progress website to play source engine soundscapes in a webbrowser. Th
 #### Rules
 
 - [X] playlooping
-- [ ] playrandom
-- [ ] playsoundscape
+- [X] playrandom
+- [X] playsoundscape
 - [ ] dsp
 - [ ] dsp_spatial
 - [ ] dsp_volume

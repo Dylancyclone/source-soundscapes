@@ -18,7 +18,7 @@ class AudioPlayer {
             const r = e.outputBuffer.getChannelData(1);
             const framesExtracted = this.simpleFilter.extract(this.samples, BUFFER_SIZE);
             if (framesExtracted === 0) {
-                this.emitter.emit('stop');
+                this.emitter.emit('end');
             }
             for (let i = 0; i < framesExtracted; i++) {
                 l[i] = this.samples[i * 2];
@@ -76,7 +76,6 @@ class AudioPlayer {
         this.simpleFilter = new SimpleFilter(this.source, this.soundTouch);
 
         this.duration = buffer.duration;
-        this.emitter.emit('state', {duration: buffer.duration});
     }
 
     play() {
@@ -84,7 +83,7 @@ class AudioPlayer {
     }
 
     pause() {
-        this.scriptProcessor.disconnect(this.gainNode);
+        this.scriptProcessor.disconnect();
     }
 
     seekPercent(percent) {

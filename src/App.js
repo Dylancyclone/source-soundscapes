@@ -178,10 +178,12 @@ export default class Example extends React.Component {
     var text = [];
 		this.state.soundscapes[soundscape].channels.forEach(async (channel, i) => {
       //if (this.channels[index]) this.channels[index].stop(); //In case something is already there and hasn't been stopped
+      var volume;
+      var pitch;
+      var index;
       
       if (channel.type==='playlooping')
       {
-        var volume;
         if (/,/.test(channel.volume)) {
           volume = this.randomBetween(parseFloat(channel.volume.split(',')[0]),parseFloat(channel.volume.split(',')[1]));
         }
@@ -190,7 +192,6 @@ export default class Example extends React.Component {
           volume = channel.volume;
         }
 
-        var pitch;
         if (/,/.test(channel.pitch)) {
           pitch = this.randomBetween(parseFloat(channel.pitch.split(',')[0]),parseFloat(channel.pitch.split(',')[1]))/100;
         }
@@ -200,7 +201,7 @@ export default class Example extends React.Component {
         }
         this.emitter = new EventEmitter();
 
-        var index = this.channels.push(new AudioPlayer({
+        index = this.channels.push(new AudioPlayer({
           emitter: this.emitter,
           pitch: pitch,
           tempo: 1,
@@ -237,7 +238,6 @@ export default class Example extends React.Component {
       {
 
 
-        var volume;
         if (/,/.test(channel.volume)) {
           volume = this.randomBetween(parseFloat(channel.volume.split(',')[0]),parseFloat(channel.volume.split(',')[1]));
         }
@@ -246,7 +246,6 @@ export default class Example extends React.Component {
           volume = channel.volume;
         }
 
-        var pitch;
         if (/,/.test(channel.pitch)) {
           pitch = this.randomBetween(parseFloat(channel.pitch.split(',')[0]),parseFloat(channel.pitch.split(',')[1]))/100;
         }
@@ -256,11 +255,11 @@ export default class Example extends React.Component {
         }
         this.emitter = new EventEmitter();
 
-        var index = this.channels.push(new AudioPlayer({
+        index = this.channels.push(new AudioPlayer({
           emitter: this.emitter,
           pitch: pitch,
           tempo: 1,
-          volume: volume
+          volume: volume*.75
         }))-1;
 
         //this.emitter.on('stop', () => this.channels[index].seekPercent(0));
@@ -311,6 +310,15 @@ export default class Example extends React.Component {
 
                 await this.channels[index].setBuffer(buffer);
                 this.channels[index].seekPercent(0);
+
+                if (/,/.test(channel.volume)) {
+                  this.channels[index].volume = this.randomBetween(parseFloat(channel.volume.split(',')[0]),parseFloat(channel.volume.split(',')[1]))*.75;
+                }
+        
+                if (/,/.test(channel.pitch)) {
+                  this.channels[index].pitch = this.randomBetween(parseFloat(channel.pitch.split(',')[0]),parseFloat(channel.pitch.split(',')[1]))/100;
+                }
+
                 this.timeouts.push(setTimeout(function () {
                     this.channels[index].play();
                   }.bind(this), this.randomBetween(parseFloat(channel.time.split(',')[0]),parseFloat(channel.time.split(',')[1]))*1000, this)

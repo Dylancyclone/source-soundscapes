@@ -3,10 +3,15 @@ const {SimpleFilter, SoundTouch} = require('./soundtouch');
 const BUFFER_SIZE = 4096;
 
 class AudioPlayer {
-    constructor({emitter, pitch, tempo}) {
+    constructor({emitter, pitch, tempo, volume}) {
         this.emitter = emitter;
 
         this.context = new AudioContext();
+
+        this.gainNode = this.context.createGain();
+        this.gainNode.gain.value = volume;
+        this.gainNode.connect(this.context.destination);
+
         this.scriptProcessor = this.context.createScriptProcessor(BUFFER_SIZE, 2, 2);
         this.scriptProcessor.onaudioprocess = e => {
             const l = e.outputBuffer.getChannelData(0);
@@ -42,20 +47,25 @@ class AudioPlayer {
         this.soundTouch.tempo = tempo;
     }
 
+    get volume() {
+        return this.soundTouch.tempo;
+    }
+    set volume(volume) {
+        this.gainNode.gain.value = volume;
+    }
+
     decodeAudioData(data) {
         return this.context.decodeAudioData(data);
     }
 
     setBuffer(buffer) {
-        const bufferSource = this.context.createBufferSource();
-        bufferSource.buffer = buffer;
 
         this.samples = new Float32Array(BUFFER_SIZE * 2);
         this.source = {
             extract: (target, numFrames, position) => {
                 this.emitter.emit('state', {t: position / this.context.sampleRate});
                 const l = buffer.getChannelData(0);
-                const r = buffer.getChannelData(1);
+                const r = buffer.getChannelData(buffer.numberOfChannels-1); //If the file is mono, duplicate sound to both channels
                 for (let i = 0; i < numFrames; i++) {
                     target[i * 2] = l[i + position];
                     target[i * 2 + 1] = r[i + position];
@@ -70,11 +80,11 @@ class AudioPlayer {
     }
 
     play() {
-        this.scriptProcessor.connect(this.context.destination);
+        this.scriptProcessor.connect(this.gainNode);
     }
 
     pause() {
-        this.scriptProcessor.disconnect(this.context.destination);
+        this.scriptProcessor.disconnect(this.gainNode);
     }
 
     seekPercent(percent) {

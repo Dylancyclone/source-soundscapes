@@ -181,6 +181,14 @@ export default class Example extends React.Component {
       
       if (channel.type==='playlooping')
       {
+        var volume;
+        if (/,/.test(channel.volume)) {
+          volume = this.randomBetween(channel.volume.split(',')[0],channel.volume.split(',')[1]);
+        }
+        else
+        {
+          volume = channel.volume;
+        }
 
         var pitch;
         if (/,/.test(channel.pitch)) {
@@ -196,6 +204,7 @@ export default class Example extends React.Component {
           emitter: this.emitter,
           pitch: pitch,
           tempo: 1,
+          volume: volume
         }))-1;
 
         this.emitter.on('stop', () => this.channels[index].seekPercent(0));
@@ -218,30 +227,11 @@ export default class Example extends React.Component {
               this.channels[index].play();
             };
           });
-
-
-
-        // var index = this.channels.push(new Audio("/sound/"+channel.wave))-1;
-        // //this.channels[index] = new Audio("/sound/"+channel.wave);
-        // if (/,/.test(channel.volume)) {
-        //   this.channels[index].volume = this.randomBetween(channel.volume.split(',')[0],channel.volume.split(',')[1]);
-        // }
-        // else
-        // {
-        //   this.channels[index].volume = channel.volume;
-        // }
-        // this.channels[index].ontimeupdate= function(i) {
-        //   if(this.currentTime > this.duration - 0.3){
-        //     this.currentTime = 0;
-        //     this.play();
-        //   }
-        // };
-        // this.channels[index].play();
-        // text.push(
-        //   <div key={JSON.stringify(channel)}>
-        //     <p>{JSON.stringify(channel)}</p>
-        //   </div>
-        // );
+          text.push(
+            <div key={JSON.stringify(channel)}>
+              <p>{JSON.stringify(channel)}</p>
+            </div>
+          );
       }
       if (channel.type==='playrandom' && false)
       {

@@ -23,7 +23,7 @@ A work-in-progress website to play source engine soundscapes in a webbrowser. Th
 #### Keyvalues
 
 - [X] wave
-- [ ] volume
+- [X] volume
 - [X] pitch
 - [ ] position
 - [ ] origin

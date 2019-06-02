@@ -1,6 +1,6 @@
 const {SimpleFilter, SoundTouch} = require('./soundtouch');
 
-const BUFFER_SIZE = 4096;
+const BUFFER_SIZE = 2048;
 
 class AudioPlayer {
     constructor({emitter, pitch, tempo, volume}) {
@@ -84,6 +84,21 @@ class AudioPlayer {
 
     pause() {
         this.scriptProcessor.disconnect();
+        
+        this.scriptProcessor = null;
+        this.scriptProcessor = this.context.createScriptProcessor(BUFFER_SIZE, 2, 2);
+        this.scriptProcessor.onaudioprocess = e => {
+            const l = e.outputBuffer.getChannelData(0);
+            const r = e.outputBuffer.getChannelData(1);
+            const framesExtracted = this.simpleFilter.extract(this.samples, BUFFER_SIZE);
+            if (framesExtracted === 0) {
+                this.emitter.emit('end');
+            }
+            for (let i = 0; i < framesExtracted; i++) {
+                l[i] = this.samples[i * 2];
+                r[i] = this.samples[i * 2 + 1];
+            }
+        };
     }
 
     seekPercent(percent) {

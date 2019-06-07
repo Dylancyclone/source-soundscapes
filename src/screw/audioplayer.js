@@ -3,7 +3,9 @@ const {SimpleFilter, SoundTouch} = require('./soundtouch');
 const BUFFER_SIZE = 2048;
 
 class AudioPlayer {
-    constructor({emitter, pitch, tempo, volume}) {
+    constructor({emitter, pitch, tempo, volume, loop}) {
+        this.loop = loop;
+
         this.emitter = emitter;
 
         this.context = new AudioContext();
@@ -63,13 +65,13 @@ class AudioPlayer {
         this.samples = new Float32Array(BUFFER_SIZE * 2);
         this.source = {
             extract: (target, numFrames, position) => {
-                this.emitter.emit('state', {t: position / this.context.sampleRate});
                 const l = buffer.getChannelData(0);
                 const r = buffer.getChannelData(buffer.numberOfChannels-1); //If the file is mono, duplicate sound to both channels
                 for (let i = 0; i < numFrames; i++) {
-                    target[i * 2] = l[i + position];
-                    target[i * 2 + 1] = r[i + position];
+                    target[i * 2] = l[(i + position) % (buffer.duration * this.context.sampleRate)];
+                    target[i * 2 + 1] = r[(i + position) % (buffer.duration * this.context.sampleRate)];
                 }
+                if (this.loop) return numFrames;
                 return Math.min(numFrames, l.length - position);
             },
         };

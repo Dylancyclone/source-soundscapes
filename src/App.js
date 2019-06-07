@@ -205,7 +205,8 @@ export default class Example extends React.Component {
           emitter: this.emitter,
           pitch: pitch,
           tempo: 1,
-          volume: volume
+          volume: volume,
+          loop:true
         }))-1;
 
         this.emitter.on('end', () => this.channels[index].seekPercent(0));
@@ -220,7 +221,7 @@ export default class Example extends React.Component {
               try {
                   buffer = await this.channels[index].decodeAudioData(event.target.result);
               } catch (err) {
-                console.log(err)
+                console.log("Error: " + err + ", with file: " + filename + ". Does file exist?")
                   return;
               }
 
@@ -259,7 +260,8 @@ export default class Example extends React.Component {
           emitter: this.emitter,
           pitch: pitch,
           tempo: 1,
-          volume: volume*.75
+          volume: volume*.75,
+          loop:false
         }))-1;
 
         //this.emitter.on('stop', () => this.channels[index].seekPercent(0));

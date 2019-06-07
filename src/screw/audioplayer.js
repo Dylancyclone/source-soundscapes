@@ -10,9 +10,12 @@ class AudioPlayer {
 
         this.context = new AudioContext();
 
+        this.gainNodeClick = this.context.createGain();
+        this.gainNodeClick.connect(this.context.destination);
+
         this.gainNode = this.context.createGain();
         this.gainNode.gain.value = volume;
-        this.gainNode.connect(this.context.destination);
+        this.gainNode.connect(this.gainNodeClick);
 
         this.scriptProcessor = this.context.createScriptProcessor(BUFFER_SIZE, 2, 2);
         this.scriptProcessor.onaudioprocess = e => {
@@ -67,12 +70,22 @@ class AudioPlayer {
             extract: (target, numFrames, position) => {
                 const l = buffer.getChannelData(0);
                 const r = buffer.getChannelData(buffer.numberOfChannels-1); //If the file is mono, duplicate sound to both channels
-                for (let i = 0; i < numFrames; i++) {
-                    target[i * 2] = l[(i + position) % (buffer.duration * this.context.sampleRate)];
-                    target[i * 2 + 1] = r[(i + position) % (buffer.duration * this.context.sampleRate)];
+                if (this.loop)
+                {
+                    for (let i = 0; i < numFrames; i++) {
+                        target[i * 2] = l[(i + position) % (buffer.duration * this.context.sampleRate)];
+                        target[i * 2 + 1] = r[(i + position) % (buffer.duration * this.context.sampleRate)];
+                    }
+                }
+                else
+                {
+                    for (let i = 0; i < numFrames; i++) {
+                        target[i * 2] = l[(i + position)];
+                        target[i * 2 + 1] = r[(i + position)];
+                    }
                 }
                 if (this.loop) return numFrames;
-                return Math.min(numFrames, l.length - position);
+                return Math.min(numFrames, l.length - position + BUFFER_SIZE*5); //BUFFER_SIZE*5 Might mess up some timings?
             },
         };
         this.simpleFilter = new SimpleFilter(this.source, this.soundTouch);
@@ -85,22 +98,29 @@ class AudioPlayer {
     }
 
     pause() {
-        this.scriptProcessor.disconnect();
         
-        this.scriptProcessor = null;
-        this.scriptProcessor = this.context.createScriptProcessor(BUFFER_SIZE, 2, 2);
-        this.scriptProcessor.onaudioprocess = e => {
-            const l = e.outputBuffer.getChannelData(0);
-            const r = e.outputBuffer.getChannelData(1);
-            const framesExtracted = this.simpleFilter.extract(this.samples, BUFFER_SIZE);
-            if (framesExtracted === 0) {
-                this.emitter.emit('end');
-            }
-            for (let i = 0; i < framesExtracted; i++) {
-                l[i] = this.samples[i * 2];
-                r[i] = this.samples[i * 2 + 1];
-            }
-        };
+        this.gainNodeClick.gain.setValueAtTime(this.gainNodeClick.gain.value, this.context.currentTime); 
+
+        this.gainNodeClick.gain.exponentialRampToValueAtTime(0.0001, this.context.currentTime + 0.03);
+        setTimeout(() => {
+            this.scriptProcessor.disconnect();
+            this.gainNodeClick.gain.setValueAtTime(1, this.context.currentTime); 
+            
+            this.scriptProcessor = null;
+            this.scriptProcessor = this.context.createScriptProcessor(BUFFER_SIZE, 2, 2);
+            this.scriptProcessor.onaudioprocess = e => {
+                const l = e.outputBuffer.getChannelData(0);
+                const r = e.outputBuffer.getChannelData(1);
+                const framesExtracted = this.simpleFilter.extract(this.samples, BUFFER_SIZE);
+                if (framesExtracted === 0) {
+                    this.emitter.emit('end');
+                }
+                for (let i = 0; i < framesExtracted; i++) {
+                    l[i] = this.samples[i * 2];
+                    r[i] = this.samples[i * 2 + 1];
+                }
+            };
+        },30)
     }
 
     seekPercent(percent) {

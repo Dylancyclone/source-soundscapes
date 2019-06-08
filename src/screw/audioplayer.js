@@ -53,7 +53,7 @@ class AudioPlayer {
     }
 
     get volume() {
-        return this.soundTouch.tempo;
+        return this.gainNode.gain.value;
     }
     set volume(volume) {
         this.gainNode.gain.value = volume;

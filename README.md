@@ -34,6 +34,7 @@ A work-in-progress website to play source engine soundscapes in a webbrowser. Th
 
 - [ ] Select Game
 - [X] Select Soundscape
+- [X] Global Volume Slider
 - [ ] Mute Channel
 - [ ] Import Soundscape
 - [ ] Support Custom Environments

@@ -3,7 +3,11 @@ import AudioPlayer from './screw/audioplayer';
 import EventEmitter from 'eventemitter3';
 import SoundscapeSelector from './SoundscapeSelector';
 
+import './App.css'
+
 import * as Items from './soundscapes';
+
+let previousVolume = 1;
 
 export default class Example extends React.Component {
   constructor(props) {
@@ -166,6 +170,11 @@ export default class Example extends React.Component {
     this.timeouts = [];
   }
 
+  handleVolumeUpdate = (e) => {
+    this.channels.forEach((channel) => {channel.volume = channel.volume / previousVolume * parseFloat(e.target.value);})
+    previousVolume = e.target.value;
+  }
+
   renderCurrentSoundscape() {
     return (
       <p>
@@ -205,7 +214,7 @@ export default class Example extends React.Component {
           emitter: this.emitter,
           pitch: pitch,
           tempo: 1,
-          volume: volume,
+          volume: volume * previousVolume,
           loop:true
         }))-1;
 
@@ -260,7 +269,7 @@ export default class Example extends React.Component {
           emitter: this.emitter,
           pitch: pitch,
           tempo: 1,
-          volume: volume*.75,
+          volume: volume * .75 * previousVolume,
           loop:false
         }))-1;
 
@@ -314,7 +323,7 @@ export default class Example extends React.Component {
                 this.channels[index].seekPercent(0);
 
                 if (/,/.test(channel.volume)) {
-                  this.channels[index].volume = this.randomBetween(parseFloat(channel.volume.split(',')[0]),parseFloat(channel.volume.split(',')[1]))*.75;
+                  this.channels[index].volume = this.randomBetween(parseFloat(channel.volume.split(',')[0]),parseFloat(channel.volume.split(',')[1]))*.75 * previousVolume;
                 }
         
                 if (/,/.test(channel.pitch)) {
@@ -383,6 +392,9 @@ export default class Example extends React.Component {
             selectedSoundscape={this.state.currentSoundscape}
             onSoundscapeSelected={this.handleSoundscapeSelected}
           />
+          <div className="slidecontainer">
+            <input type="range" min="0.01" max="2" defaultValue="1" onChange={(e) => {this.handleVolumeUpdate(e)}} step="0.01" className="slider"/>
+          </div>
           {this.state.currentSoundscape && this.renderCurrentSoundscape()}
           {this.state.currentSoundscape !=='' && this.renderChannels(this.state.currentSoundscape)}
         </div>

@@ -14,11 +14,16 @@ A work-in-progress website to play source engine soundscapes in a webbrowser. Th
 - [X] playlooping
 - [X] playrandom
 - [X] playsoundscape
-- [ ] dsp
-- [ ] dsp_spatial
-- [ ] dsp_volume
-- [ ] fadetime
-- [ ] soundmixer
+- [X] dsp
+  - Will not implement. DSP is simply way over my head, and I don't think the Web Audio API even supports effects to that degree.
+- [X] dsp_spatial
+  - See above.
+- [X] dsp_volume
+  - See above.
+- [X] fadetime
+  - Will not implement. fadetime determines the time it takes for the soundscape to crossfade in, this site will simply switch between soundscapes
+- [X] soundmixer
+  - Will not implement. soundmixer determines custom volume control over various sound categories for things like ducking. Since this is a controlled environment (no dialogue, player/NPCs, or other game sounds), this is unnecessary.
 
 #### Keyvalues
 

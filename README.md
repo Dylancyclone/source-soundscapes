@@ -32,8 +32,10 @@ A work-in-progress website to play source engine soundscapes in a webbrowser. Th
 - [X] pitch
 - [X] position
 - [X] origin
-- [ ] attenuation
-- [ ] soundlevel 
+- [X] attenuation
+  - Will not implement. Space is simulated under the position/origin keyvalue, making attenuation redundant.
+- [X] soundlevel 
+  - See above.
 
 #### Features
 

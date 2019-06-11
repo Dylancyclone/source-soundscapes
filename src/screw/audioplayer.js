@@ -3,15 +3,19 @@ const {SimpleFilter, SoundTouch} = require('./soundtouch');
 const BUFFER_SIZE = 2048;
 
 class AudioPlayer {
-    constructor({emitter, pitch, tempo, volume, loop}) {
+    constructor({emitter, pitch, tempo, volume, pan, loop}) {
         this.loop = loop;
 
         this.emitter = emitter;
 
         this.context = new AudioContext();
 
+        this.panNode = this.context.createStereoPanner();
+        this.panNode.pan.value = pan;
+        this.panNode.connect(this.context.destination);
+
         this.gainNodeClick = this.context.createGain();
-        this.gainNodeClick.connect(this.context.destination);
+        this.gainNodeClick.connect(this.panNode);
 
         this.gainNode = this.context.createGain();
         this.gainNode.gain.value = volume;
@@ -57,6 +61,13 @@ class AudioPlayer {
     }
     set volume(volume) {
         this.gainNode.gain.value = volume;
+    }
+
+    get pan() {
+        return this.panNode.pan.value;
+    }
+    set pan(pan) {
+        this.panNode.pan.value = pan;
     }
 
     decodeAudioData(data) {

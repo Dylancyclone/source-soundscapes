@@ -190,6 +190,7 @@ export default class Example extends React.Component {
       var volume;
       var pitch;
       var index;
+      var pan;
       
       if (channel.type==='playlooping')
       {
@@ -208,6 +209,24 @@ export default class Example extends React.Component {
         {
           pitch = channel.pitch/100;
         }
+
+        if (channel.position === "random") {
+          pan = this.randomBetween(-0.5,0.5);
+        }
+        else if (!isNaN(parseInt(channel.position)))
+        {
+          pan = this.randomBetween(-0.5,0.5);
+        }
+        else
+        {
+          pan = 0;
+        }
+        
+        if (channel.hasOwnProperty("origin"))
+        {
+          pan = this.randomBetween(-0.5,0.5);
+        }
+
         this.emitter = new EventEmitter();
 
         index = this.channels.push(new AudioPlayer({
@@ -215,13 +234,15 @@ export default class Example extends React.Component {
           pitch: pitch,
           tempo: 1,
           volume: volume * previousVolume,
+          pan:pan,
           loop:true
         }))-1;
 
         this.emitter.on('end', () => this.channels[index].seekPercent(0));
 
         const reader = new FileReader();
-        fetch("/sound/"+channel.wave)
+        var filename = "/sound/"+channel.wave;
+        fetch(filename)
           .then(resp => resp.blob())
           .then(blob => {
             reader.readAsArrayBuffer(blob);
@@ -263,6 +284,26 @@ export default class Example extends React.Component {
         {
           pitch = channel.pitch/100;
         }
+
+        if (channel.position === "random") {
+          pan = this.randomBetween(-0.75,0.75);
+          volume *= 0.75;
+        }
+        else if (!isNaN(parseInt(channel.position)))
+        {
+          pan = this.randomBetween(-0.75,0.75);
+          volume *= 0.75;
+        }
+        else
+        {
+          pan = 0;
+        }
+
+        if (channel.hasOwnProperty("origin"))
+        {
+          pan = this.randomBetween(-0.75,0.75);
+        }
+
         this.emitter = new EventEmitter();
 
         index = this.channels.push(new AudioPlayer({
@@ -270,6 +311,7 @@ export default class Example extends React.Component {
           pitch: pitch,
           tempo: 1,
           volume: volume * .75 * previousVolume,
+          pan:pan,
           loop:false
         }))-1;
 
@@ -329,6 +371,15 @@ export default class Example extends React.Component {
                 if (/,/.test(channel.pitch)) {
                   this.channels[index].pitch = this.randomBetween(parseFloat(channel.pitch.split(',')[0]),parseFloat(channel.pitch.split(',')[1]))/100;
                 }
+                if (channel.position === "random") { //Only change position if random. If it has a set position, keep it constant.
+                  this.channels[index].pan = this.randomBetween(-0.75,0.75);
+                  volume *= 0.75;
+                }
+                else if (!isNaN(parseInt(channel.position)))
+                {
+                  volume *= 0.75;
+                }
+                
 
                 this.timeouts.push(setTimeout(function () {
                     this.channels[index].play();

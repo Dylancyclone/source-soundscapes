@@ -30,8 +30,8 @@ A work-in-progress website to play source engine soundscapes in a webbrowser. Th
 - [X] wave
 - [X] volume
 - [X] pitch
-- [ ] position
-- [ ] origin
+- [X] position
+- [X] origin
 - [ ] attenuation
 - [ ] soundlevel 
 

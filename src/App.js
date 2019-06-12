@@ -2,12 +2,14 @@ import React from 'react';
 import AudioPlayer from './screw/audioplayer';
 import EventEmitter from 'eventemitter3';
 import SoundscapeSelector from './SoundscapeSelector';
+import GameSelector from './GameSelector';
 
 import './App.css'
 
 import * as Items from './soundscapes';
 
 let previousVolume = 1;
+//let sounds = [];
 
 export default class Example extends React.Component {
   constructor(props) {
@@ -16,8 +18,10 @@ export default class Example extends React.Component {
     console.log(Items)
 
     this.state = {
+      games: [],
       soundscapes: [],
       currentSoundscape: '',
+      currentGame: '',
     };
 
     this.channels = [];
@@ -25,11 +29,17 @@ export default class Example extends React.Component {
   }
 
   componentDidMount() {
+    var games = [];
     var soundscapes = {};
-    Object.keys(Items.hl2).forEach((e) => {
-      soundscapes = {...soundscapes, ...this.parseSoundscape(Items.hl2[e])}
+    Object.keys(Items).forEach((game) => {
+      games.push(game)
+      Object.keys(Items[game]).forEach((e) => {
+        soundscapes[game] = {...soundscapes[game], ...this.parseSoundscape(Items[game][e])}
+      })
     })
+    //console.log(sounds)
     this.setState({
+      games:games,
       soundscapes:soundscapes,
     })
   }
@@ -42,9 +52,9 @@ export default class Example extends React.Component {
     var titleRegex = /"[a-zA-z._0-9]+"/;
     var channelRegex = /"(playrandom)":|"(playlooping)":|"(playsoundscape)":/;
     var objectRegex = /("[a-zA-z._0-9]+")([{[])/g;
-    var keyValueRegex = /("[a-zA-z._0-9]+")("[a-zA-z.,_0-9/]+")/g;
-    var rndWaveRegex = /"rndwave":{([a-zA-Z.0-9,:/"_]+)}/g;
-    var waveRegex = /"wave":("[a-zA-z.,_0-9/]+")/g;
+    var keyValueRegex = /("[a-zA-z._0-9]+")("[a-zA-z.,_0-9/-]+")/g;
+    var rndWaveRegex = /"rndwave":{([a-zA-Z.0-9,:/"_-]+)}/g;
+    var waveRegex = /"wave":("[a-zA-z.,_0-9/-]+")/g;
     var objectCommaRegex = /[}\]]"/g;
     var cleanUpRegex = /,([}\]])/g;
 
@@ -54,9 +64,11 @@ export default class Example extends React.Component {
     //Since most of them have no impact on this site, we just remove them
     //so that we get clean paths
 
-    text = text.replace(/[*#)(><^@$!?]/g,""); //Remove all Sound Characters
+    text = text.replace(/[*#)(><^@$!?~]/g,""); //Remove all Sound Characters
+    text = text.replace(/\\/g,"/"); //Replace backslashs with forwardslashs
+    text = text.replace(/([0-9. -]+,){2}([0-9. -]+);*/g,"location"); //Remove origin keyvalue data
     
-    text = text.replace(/\/\/(.+)/g,""); //Remove all commented lines
+    text = text.replace(/\/\/(.*)/g,""); //Remove all commented lines
     text = text.replace(/[\s\n]/g,""); //Remove all whitespaces and newlines
 
     var sections = {}
@@ -91,6 +103,8 @@ export default class Example extends React.Component {
             channel = channel.replace(cleanUpRegex,"$1"); //remove commas at the end of a list
 
             channel = JSON.parse(channel);
+            //if (channel.wave !== undefined) {sounds.push(channel.wave);}
+            //if (channel.rndwave !== undefined) {sounds= [...sounds, ...channel.rndwave];}
             if (channelText[1] !== undefined) {channel.type=channelText[1]};
             if (channelText[2] !== undefined) {channel.type=channelText[2]};
             if (channelText[3] !== undefined) {channel.type=channelText[3]};
@@ -162,8 +176,17 @@ export default class Example extends React.Component {
 
   handleSoundscapeSelected = (soundscape) => {
     this.setState({ currentSoundscape: soundscape});
-    console.log(soundscape)
-    console.log(this.state.soundscapes[soundscape])
+    console.log("Selected Soundscape:", soundscape)
+    console.log(this.state.soundscapes[this.state.currentGame][soundscape])
+    this.channels.forEach((channel) => {channel.pause();})
+    this.timeouts.forEach((timeout) => {clearTimeout(timeout);})
+    this.channels = [];
+    this.timeouts = [];
+  }
+
+  handleGameSelected = (game) => {
+    this.setState({ currentGame: game, currentSoundscape:''});
+    console.log("Selected game:", game)
     this.channels.forEach((channel) => {channel.pause();})
     this.timeouts.forEach((timeout) => {clearTimeout(timeout);})
     this.channels = [];
@@ -185,8 +208,9 @@ export default class Example extends React.Component {
 
   renderChannels(soundscape) {
     var text = [];
-		this.state.soundscapes[soundscape].channels.forEach(async (channel, i) => {
+		this.state.soundscapes[this.state.currentGame][soundscape].channels.forEach(async (channel, i) => {
       //if (this.channels[index]) this.channels[index].stop(); //In case something is already there and hasn't been stopped
+      var filename;
       var volume;
       var pitch;
       var index;
@@ -241,7 +265,7 @@ export default class Example extends React.Component {
         this.emitter.on('end', () => this.channels[index].seekPercent(0));
 
         const reader = new FileReader();
-        var filename = "/sound/"+channel.wave;
+        filename = "/sound/"+channel.wave;
         fetch(filename)
           .then(resp => resp.blob())
           .then(blob => {
@@ -317,7 +341,7 @@ export default class Example extends React.Component {
 
         //this.emitter.on('stop', () => this.channels[index].seekPercent(0));
         this.emitter.on('err', () => {
-          var filename = "/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
+          filename = "/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
           fetch(filename)
             .then(resp => resp.blob())
             .then(blob => {
@@ -346,7 +370,7 @@ export default class Example extends React.Component {
           this.channels[index].seekPercent(0);
           this.channels[index].pause();
           
-          var filename = "/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
+          filename = "/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
           fetch(filename)
             .then(resp => resp.blob())
             .then(blob => {
@@ -390,7 +414,7 @@ export default class Example extends React.Component {
         })
 
         const reader = new FileReader();
-        var filename = "/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
+        filename = "/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
         fetch(filename)
           .then(resp => resp.blob())
           .then(blob => {
@@ -438,8 +462,13 @@ export default class Example extends React.Component {
     {
       return (
         <div>
+          <GameSelector
+            options={this.state.games}
+            selectedSoundscape={this.state.currentGame}
+            onGameSelected={this.handleGameSelected}
+          />
           <SoundscapeSelector
-            options={this.state.soundscapes}
+            options={this.state.soundscapes[this.state.currentGame]}
             selectedSoundscape={this.state.currentSoundscape}
             onSoundscapeSelected={this.handleSoundscapeSelected}
           />

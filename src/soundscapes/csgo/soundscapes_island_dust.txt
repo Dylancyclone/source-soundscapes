@@ -1,0 +1,1389 @@
+// island_dust soundscapes
+
+//island_dust.outside.forest.high - highest hill area 
+//island_dust.outside.forest.low - low hill area
+//island_dust.outside.barren - rock canyons
+//island_dust.outside.buildings - around buildings, roads, hangers
+//island_dust.outside.coast - around the edges
+
+//island_dust.inside.bunker - underground concrete bunkers
+//island_dust.inside.caves - cave tunnels
+//island_dust.inside.house - houses with rooms
+//island_dust.inside.shack - small open enclaves
+//island_dust.inside.hanger - large halls
+
+
+
+"island_dust.generic"
+{
+	"dsp" "21"
+	
+	"playlooping"
+	{
+		"volume"	"0.7"
+		"pitch"		"100"
+		"wave"		"ambient\survival\outside_forest_high_01.wav"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "towers"
+	}
+	
+	
+	"playsoundscape"
+	{
+		"name" "substations"
+	}
+	
+	
+}
+
+"island_dust.forest"
+{
+
+	"playsoundscape"
+	{
+		"name" "towers"
+	}
+	
+	
+	"playrandom"
+	{
+
+		"time"		"200, 420"
+		"volume"		"0.7"
+		"pitch"		"100"
+		"origin"	        "6003.180664, 3044.618164, 897.626038"
+		"soundlevel"  	"SNDLVL_70dB"
+		
+		"rndwave"
+		{
+			"wave"		"~ambient\survival\outside_forest_high_0l.wav"
+			"wave"		"~ambient\survival\outside_forest_high_0l.wav"
+		}
+
+	
+	}
+	
+}
+
+
+"island_dust.elevation"
+{
+	"dsp" "0"
+	"fadetime" "1.0"
+	
+	// underlying area "tone"
+	
+	"playlooping"
+	{
+		"volume"	"0.2"
+		"pitch"		"80"
+		"wave"		"ambient\survival\outside_forest_high_01.wav"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "towers"
+	}
+	
+
+	"playrandom"
+	{
+		"time"		"5,10"
+		"volume"		"0.2"
+		"pitch"		"90,110"
+
+		"rndwave"
+		{
+			"wave"	"ambient/wind/wind_med1.wav"
+			"wave"	"ambient/wind/wind_med2.wav"
+		}
+	}
+
+	// planes flying overhead
+	"playrandom"
+	{
+		"time"		"10,50"
+		"volume"		"0.05, 0.2"
+		"pitch"		"90,110"
+
+		"rndwave"
+		{
+			"wave"	"ambient/nuke/airplane_01.wav"
+			"wave"	"ambient/nuke/airplane_02.wav"
+			"wave"	"ambient/nuke/airplane_03.wav"
+			"wave"	"ambient/nuke/airplane_04.wav"
+		}
+	}
+
+}
+
+"substations"
+{
+	"dsp" "0"
+	
+	"playlooping"
+	{
+		"volume"		"0.5"
+		"pitch"		"100"
+		"soundlevel"  	"SNDLVL_55dB"
+		"origin"	        "4946.266113, 1344.050415, 638.179749"
+		
+		"wave"		"ambient\survival\machine_02.wav"
+	}
+	
+	"playlooping"
+	{
+		"volume"		"0.5"
+		"pitch"		"100"
+		"soundlevel"  	"SNDLVL_55dB"
+		"origin"	        "5044.347656, -5161.499512, 537.345459"
+		
+		"wave"		"ambient\survival\machine_02.wav"
+	}
+	
+	"playlooping"
+	{
+		"volume"		"0.5"
+		"pitch"		"100"
+		"soundlevel"  	"SNDLVL_55dB"
+		"origin"	        "2289.621338, -2176.718994, 507.583954"
+		
+		"wave"		"ambient\survival\machine_02.wav"
+	}
+	
+	"playlooping"
+	{
+		"volume"		"0.5"
+		"pitch"		"100"
+		"soundlevel"  	"SNDLVL_55dB"
+		"origin"	        "1348.572876, 3968.152832, 843.861816"
+		
+		"wave"		"ambient\survival\machine_02.wav"
+	}
+	
+	"playlooping"
+	{
+		"volume"		"0.5"
+		"pitch"		"100"
+		"soundlevel"  	"SNDLVL_55dB"
+		"origin"	        "6163.877930, 5721.870117, 655.433960"
+		
+		"wave"		"ambient\survival\machine_02.wav"
+	}
+
+}
+
+"deepinfo"
+{
+	"dsp" "0"
+	
+	"playrandom"
+	{
+		"volume"		"0.5"
+		"time"		"10,50"
+		"pitch"		"100"
+		"soundlevel"  	"SNDLVL_55dB"
+		//"origin"	        "4946.266113, 1344.050415, 638.179749"
+		
+		"rndwave"
+		{
+			"wave"	"ambient/survival/deep_info_01.wav"
+			"wave"	"ambient/survival/deep_info_02.wav"
+			"wave"	"ambient/survival/deep_info_03.wav"
+			"wave"	"ambient/survival/deep_info_04.wav"
+		}
+	}
+
+}
+
+
+"towers"
+{
+	"dsp" "0"
+	
+	// t1
+	"playrandom"
+	{
+		"volume"		"0.5"
+		"time"		"60,90"
+		"pitch"		"100"
+		"soundlevel"  	"SNDLVL_110dB"
+		"origin"	        "-6677.619629, -5529.643555, 1206.05590"
+		"rndwave"
+		{
+			"wave"	"ambient/survival/t1.wav"
+			"wave"	"ambient/survival/t2.wav"
+			"wave"	"ambient/survival/t3.wav"
+			"wave"	"ambient/survival/t4.wav"
+		}
+	}
+	
+	// t2
+	"playrandom"
+	{
+		"volume"		"0.5"
+		"time"		"55,600"
+		"pitch"		"100"
+		"soundlevel"  	"SNDLVL_110dB"
+		"origin"	        "-758.231201, -5971.746582, 1521.436035"
+		"rndwave"
+		{
+			"wave"	"ambient/survival/t1.wav"
+			"wave"	"ambient/survival/t2.wav"
+			"wave"	"ambient/survival/t3.wav"
+			"wave"	"ambient/survival/t4.wav"
+		}
+	}
+	
+	// t3
+	"playrandom"
+	{
+		"volume"		"0.5"
+		"time"		"45,400"
+		"pitch"		"100"
+		"soundlevel"  	"SNDLVL_110dB"
+		"origin"	        "6265.116211, -3747.610596, 1885.365479"
+		"rndwave"
+		{
+			"wave"	"ambient/survival/t1.wav"
+			"wave"	"ambient/survival/t2.wav"
+			"wave"	"ambient/survival/t3.wav"
+			"wave"	"ambient/survival/t4.wav"
+		}
+	}
+	
+	// t4
+	"playrandom"
+	{
+		"volume"		"0.5"
+		"time"		"10,70"
+		"pitch"		"100"
+		"soundlevel"  	"SNDLVL_110dB"
+		"origin"	        "3012.626465, -1267.357544, 1760.890625"
+		"rndwave"
+		{
+			"wave"	"ambient/survival/t1.wav"
+			"wave"	"ambient/survival/t2.wav"
+			"wave"	"ambient/survival/t3.wav"
+			"wave"	"ambient/survival/t4.wav"
+		}
+	}
+	
+	// t5
+	"playrandom"
+	{
+		"volume"		"0.5"
+		"time"		"15,120"
+		"pitch"		"100"
+		"soundlevel"  	"SNDLVL_110dB"
+		"origin"	        "5320.024902, 2376.670166, 2005.200684"
+		"rndwave"
+		{
+			"wave"	"ambient/survival/t1.wav"
+			"wave"	"ambient/survival/t2.wav"
+			"wave"	"ambient/survival/t3.wav"
+			"wave"	"ambient/survival/t4.wav"
+		}
+	}
+	
+	// t6
+	"playrandom"
+	{
+		"volume"		"0.5"
+		"time"		"25,125"
+		"pitch"		"100"
+		"soundlevel"  	"SNDLVL_110dB"
+		"origin"	        "-2970.576904, 6640.497559, 1078.276611"
+		"rndwave"
+		{
+			"wave"	"ambient/survival/t1.wav"
+			"wave"	"ambient/survival/t2.wav"
+			"wave"	"ambient/survival/t3.wav"
+			"wave"	"ambient/survival/t4.wav"
+		}
+	}
+	
+	// t7
+	"playrandom"
+	{
+		"volume"		"0.5"
+		"time"		"60,120"
+		"pitch"		"100"
+		"soundlevel"  	"SNDLVL_110dB"
+		"origin"	        "-3578.668213, -1530.598022, 1501.200684"
+		"rndwave"
+		{
+			"wave"	"ambient/survival/t1.wav"
+			"wave"	"ambient/survival/t2.wav"
+			"wave"	"ambient/survival/t3.wav"
+			"wave"	"ambient/survival/t4.wav"
+		}
+	}
+
+}
+
+
+"bridge"
+{
+	
+	"playrandom"
+	{
+
+		"time"		"5, 35"
+		"volume"		"0.3, 0.5"
+		"pitch"		"99, 101"
+		"origin"	        "-4997.170898, 5943.427734, 919.195984"
+		"soundlevel"  	"SNDLVL_80dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient\survival\house_stress_01.wav"
+			"wave"	"ambient\survival\house_stress_02.wav"
+			"wave"	"ambient\survival\house_stress_03.wav"
+			"wave"	"ambient\survival\house_stress_04.wav"
+			"wave"	"ambient\survival\house_stress_05.wav"
+			"wave"	"ambient\survival\house_stress_06.wav"
+			"wave"	"ambient\survival\house_stress_07.wav"
+			"wave"	"ambient\survival\house_stress_08.wav"
+			
+		}
+	}
+	
+	"playrandom"
+	{
+
+		"time"		"5, 35"
+		"volume"		"1"
+		"pitch"		"99, 101"
+		"origin"	        "-4582.728027, 5950.826660, 919.920532"
+		"soundlevel"  	"SNDLVL_80dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient\survival\bridge_stress_01.wav"
+			"wave"	"ambient\survival\bridge_stress_02.wav"
+			"wave"	"ambient\survival\bridge_stress_03.wav"
+			"wave"	"ambient\survival\bridge_stress_04.wav"
+			"wave"	"ambient\survival\bridge_stress_05.wav"
+			"wave"	"ambient\survival\bridge_stress_06.wav"
+			"wave"	"ambient\survival\bridge_stress_07.wav"
+			
+		}
+	}
+	
+	"playrandom"
+	{
+
+		"time"		"5, 35"
+		"volume"		"1"
+		"pitch"		"99, 101"
+		"origin"	        "-4171.747070, 5817.897949, 956.713135"
+		"soundlevel"  	"SNDLVL_80dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient\survival\bridge_stress_01.wav"
+			"wave"	"ambient\survival\bridge_stress_02.wav"
+			"wave"	"ambient\survival\bridge_stress_03.wav"
+			"wave"	"ambient\survival\bridge_stress_04.wav"
+			"wave"	"ambient\survival\bridge_stress_05.wav"
+			"wave"	"ambient\survival\bridge_stress_06.wav"
+			"wave"	"ambient\survival\bridge_stress_07.wav"
+			
+		}
+	}
+	
+	"playrandom"
+	{
+
+		"time"		"5, 35"
+		"volume"		"0.3, 0.5"
+		"pitch"		"99, 101"
+		"origin"	        "-5196.504395, 5818.082031, 944.859131"
+		"soundlevel"  	"SNDLVL_80dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient\survival\house_stress_01.wav"
+			"wave"	"ambient\survival\house_stress_02.wav"
+			"wave"	"ambient\survival\house_stress_03.wav"
+			"wave"	"ambient\survival\house_stress_04.wav"
+			"wave"	"ambient\survival\house_stress_05.wav"
+			"wave"	"ambient\survival\house_stress_06.wav"
+			"wave"	"ambient\survival\house_stress_07.wav"
+			"wave"	"ambient\survival\house_stress_08.wav"
+			
+		}
+	}
+
+}
+
+
+"metal.stress"
+{
+	//water tower upper
+	"playrandom"
+	{
+
+		"time"		"13, 25"
+		"volume"		"0.3"
+		"pitch"		"99, 101"
+		"origin"	        "4579.377441, 2288.175537, 1972.013916"
+		"soundlevel"  	"SNDLVL_75dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			
+		}
+	}
+	
+	//water tower lower
+	"playrandom"
+	{
+
+		"time"		"13, 25"
+		"volume"		"0.3"
+		"pitch"		"99, 101"
+		"origin"	        "4667.980957, 2146.177002, 898.010071"
+		"soundlevel"  	"SNDLVL_75dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			
+		}
+	}
+	
+	//crane
+	"playrandom"
+	{
+
+		"time"		"5, 25"
+		"volume"		"0.3"
+		"pitch"		"99, 101"
+		"origin"	        "-823.042786, -7193.701660, 945.908936"
+		"soundlevel"  	"SNDLVL_75dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			"wave"	"ambient\survival\metal_stress_01.wav"
+			
+		}
+	}
+
+}
+
+"island_dust.outside.forest.high"
+{
+	"dsp" "21"
+	"fadetime" "1"
+	
+	"playsoundscape"
+	{
+		"name" "trees"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "towers"
+	}
+	
+	
+	"playsoundscape"
+	{
+		"name" "metal.stress"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "trees"
+	}
+	
+	
+	"playsoundscape"
+	{
+		"name" "bridge"
+	}
+
+	
+	"playlooping"
+	{
+		"volume"		"0.5"
+		"pitch"		"100"
+		//"wave"		"ambient\survival\outside_coast_01.wav"
+		"wave"		"ambient\survival\outside_forest_high_01.wav"
+	}
+	
+	"playlooping"
+	{
+		"volume"		"0.1"
+		"pitch"		"100"
+		"wave"		"ambient\survival\outside_coast_01.wav"
+		//"wave"		"ambient\survival\outside_forest_high_01.wav"
+	}
+	
+	"playlooping"
+	{
+		"volume"		"2"
+		"pitch"		"100"
+		"wave"		"ambient\dust2\wind_sand_01.wav"
+	}
+	
+
+	
+	
+	"playrandom"
+	{
+
+		"time"		"13, 35"
+		"volume"		"0.5, 1"
+		"pitch"		"95, 105"
+		"position"	        "random"
+		"soundlevel"  	"SNDLVL_85dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient\dust2\sand_gust_01.wav"
+			"wave"	"ambient\dust2\sand_gust_02.wav"
+			"wave"	"ambient\dust2\sand_gust_03.wav"
+			"wave"	"ambient\dust2\sand_gust_04.wav"
+			"wave"	"ambient\dust2\sand_gust_05.wav"
+			"wave"	"ambient\dust2\sand_gust_06.wav"
+			"wave"	"ambient\dust2\sand_gust_07.wav"
+			"wave"	"ambient\dust2\sand_gust_08.wav"
+			"wave"	"ambient\dust2\sand_gust_09.wav"
+			"wave"	"ambient\dust2\sand_gust_10.wav"
+			"wave"	"ambient\dust2\sand_gust_11.wav"
+			"wave"	"ambient\dust2\sand_gust_12.wav"
+			
+		}
+	}
+}
+
+"island_dust.outside.forest.low"
+{
+	"dsp" "22"
+	"fadetime" "1"
+	
+	"playsoundscape"
+	{
+		"name" "trees"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "towers"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "metal.stress"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "bridge"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "substations"
+	}
+	
+	
+	
+	"playlooping"
+	{
+		"volume"		"0.2"
+		"pitch"		"100"
+		"wave"		"ambient\survival\outside_barren_02.wav"
+	}
+	
+	
+	"playlooping"
+	{
+		"volume"		"0.8"
+		"pitch"		"100"
+		"wave"		"ambient\survival\outside_forest_low_01.wav"
+	}
+	
+	
+	"playrandom"
+	{
+
+		"time"		"13, 35"
+		"volume"		"0.3, 0.5"
+		"pitch"		"95, 105"
+		"position"	        "random"
+		"soundlevel"  	"SNDLVL_75dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient\dust2\sand_gust_01.wav"
+			"wave"	"ambient\dust2\sand_gust_02.wav"
+			"wave"	"ambient\dust2\sand_gust_03.wav"
+			"wave"	"ambient\dust2\sand_gust_04.wav"
+			"wave"	"ambient\dust2\sand_gust_05.wav"
+			"wave"	"ambient\dust2\sand_gust_06.wav"
+			"wave"	"ambient\dust2\sand_gust_07.wav"
+			"wave"	"ambient\dust2\sand_gust_08.wav"
+			"wave"	"ambient\dust2\sand_gust_09.wav"
+			"wave"	"ambient\dust2\sand_gust_10.wav"
+			"wave"	"ambient\dust2\sand_gust_11.wav"
+			"wave"	"ambient\dust2\sand_gust_12.wav"
+			
+		}
+	}
+}
+
+"island_dust.outside.barren"
+{
+	"dsp" "20"
+	"fadetime" "1"
+	
+	"playsoundscape"
+	{
+		"name" "trees"
+	}
+	
+	
+	"playsoundscape"
+	{
+		"name" "bridge"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "towers"
+	}
+	
+	
+	"playlooping"
+	{
+		"volume"		"0.2"
+		"pitch"		"100"
+		"wave"		"ambient\survival\outside_forest_high_01.wav"
+	}
+	
+	"playlooping"
+	{
+		"volume"		"0.7"
+		"pitch"		"100"
+		"wave"		"ambient\dust2\wind_sand_01.wav"
+	}
+	
+	"playlooping"
+	{
+		"volume"		"0.2"
+		"pitch"		"100"
+		"wave"		"ambient\wind\csgo_dust_wind_lp_02.wav"
+	}
+	
+	
+	
+	"playrandom"
+	{
+
+		"time"		"13, 35"
+		"volume"		"0.3, 0.5"
+		"pitch"		"95, 105"
+		"position"	        "random"
+		"soundlevel"  	"SNDLVL_75dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient\dust2\sand_gust_01.wav"
+			"wave"	"ambient\dust2\sand_gust_02.wav"
+			"wave"	"ambient\dust2\sand_gust_03.wav"
+			"wave"	"ambient\dust2\sand_gust_04.wav"
+			"wave"	"ambient\dust2\sand_gust_05.wav"
+			"wave"	"ambient\dust2\sand_gust_06.wav"
+			"wave"	"ambient\dust2\sand_gust_07.wav"
+			"wave"	"ambient\dust2\sand_gust_08.wav"
+			"wave"	"ambient\dust2\sand_gust_09.wav"
+			"wave"	"ambient\dust2\sand_gust_10.wav"
+			"wave"	"ambient\dust2\sand_gust_11.wav"
+			"wave"	"ambient\dust2\sand_gust_12.wav"
+			
+		}
+	}
+}
+
+"island_dust.outside.buildings"
+{
+	"dsp" "20"
+	"fadetime" "1"
+	
+
+	
+	"playsoundscape"
+	{
+		"name" "metal.stress"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "bridge"
+	}
+
+	"playsoundscape"
+	{
+		"name" "towers"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "substations"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "wateredge"
+	}
+	
+	
+	"playlooping"
+	{
+		"volume"		"2"
+		"pitch"		"100"
+		"wave"		"ambient\dust2\wind_sand_01.wav"
+	}
+	
+	"playlooping"
+	{
+		"volume"		"2"
+		"pitch"		"100"
+		"wave"		"ambient\dust2\wind_sand_01.wav"
+	}
+	
+	
+	
+	"playrandom"
+	{
+
+		"time"		"1z, 35"
+		"volume"		"0.5, 1"
+		"pitch"		"95, 105"
+		"position"	        "random"
+		"soundlevel"  	"SNDLVL_85dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient\dust2\sand_gust_01.wav"
+			"wave"	"ambient\dust2\sand_gust_02.wav"
+			"wave"	"ambient\dust2\sand_gust_03.wav"
+			"wave"	"ambient\dust2\sand_gust_04.wav"
+			"wave"	"ambient\dust2\sand_gust_05.wav"
+			"wave"	"ambient\dust2\sand_gust_06.wav"
+			"wave"	"ambient\dust2\sand_gust_07.wav"
+			"wave"	"ambient\dust2\sand_gust_08.wav"
+			"wave"	"ambient\dust2\sand_gust_09.wav"
+			"wave"	"ambient\dust2\sand_gust_10.wav"
+			"wave"	"ambient\dust2\sand_gust_11.wav"
+			"wave"	"ambient\dust2\sand_gust_12.wav"
+			
+		}
+	}
+	
+	
+
+	
+	
+}
+
+"island_dust.outside.coast"
+{
+	"dsp" "0"
+	"fadetime" "3"
+	
+	
+	"playsoundscape"
+	{
+		"name" "metal.stress"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "bridge"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "towers"
+	}
+	
+	
+	"playsoundscape"
+	{
+		"name" "trees"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "wateredge"
+	}
+	
+	"playsoundscape"
+	{
+		"name" "substations"
+	}
+	
+	
+	"playlooping"
+	{
+		"volume"		"0.3"
+		"pitch"		"100"
+		"wave"		"ambient\survival\outside_coast_01.wav"
+		//"wave"		"ambient\survival\outside_forest_high_01.wav"
+	}
+	
+	
+	"playrandom"
+	{
+
+		"time"		"13, 35"
+		"volume"		"0.5, 1"
+		"pitch"		"95, 105"
+		"position"	        "random"
+		"soundlevel"  	"SNDLVL_85dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient\dust2\sand_gust_01.wav"
+			"wave"	"ambient\dust2\sand_gust_02.wav"
+			"wave"	"ambient\dust2\sand_gust_03.wav"
+			"wave"	"ambient\dust2\sand_gust_04.wav"
+			"wave"	"ambient\dust2\sand_gust_05.wav"
+			"wave"	"ambient\dust2\sand_gust_06.wav"
+			"wave"	"ambient\dust2\sand_gust_07.wav"
+			"wave"	"ambient\dust2\sand_gust_08.wav"
+			"wave"	"ambient\dust2\sand_gust_09.wav"
+			"wave"	"ambient\dust2\sand_gust_10.wav"
+			"wave"	"ambient\dust2\sand_gust_11.wav"
+			"wave"	"ambient\dust2\sand_gust_12.wav"
+			
+		}
+	}
+}
+
+"island_dust.inside.bunker"
+{
+	"dsp" "5"
+	
+	
+	"playsoundscape"
+	{
+		"name" "deepinfo"
+	}
+	
+	// underlying area "tone"
+	"playlooping"
+	{
+		"volume"	"0.2"
+		"pitch"		"100"
+		"wave"		"ambient\survival\interior_03.wav"
+	}
+	
+	
+	//"playrandom"
+	//{
+		//"volume"	"0.1"
+		//"position"	        "random"
+		//"soundlevel"  	"SNDLVL_100dB"
+		//"time"		"15, 15"
+		//"pitch"		"100"
+		
+		//"rndwave"
+		//{
+			//"wave"		"ambient\survival\bunker_01.wav"
+			//"wave"		"ambient\survival\bunker_02.wav"
+		//}
+		
+	//}
+	
+	"playlooping"
+	{
+		"volume"	"0.2"
+		"pitch"		"100"
+		"wave"		"ambient\survival\bunker_01.wav"
+	}
+	
+	"playlooping"
+	{
+		"volume"	"0.01"
+		"pitch"		"100"
+		"wave"		"ambient\survival\bunker_02.wav"
+	}
+}
+
+"island_dust.inside.caves"
+{
+
+	"dsp" "5"
+	
+	"playsoundscape"
+	{
+		"name" "deepinfo"
+	}
+	
+	// underlying area "tone"
+	"playlooping"
+	{
+		"volume"	"0.1"
+		"pitch"		"100"
+		"wave"		"ambient\survival\interior_03.wav"
+	}
+	
+	
+	"playlooping"
+	{
+		"volume"	"0.2"
+		"pitch"		"100"
+		"wave"		"ambient\survival\outside_forest_low_01.wav"
+	}
+}
+
+"island_dust.inside.house"
+{
+	"dsp" "6"
+	
+	
+	"playsoundscape"
+	{
+		"name" "island_dust.forest"
+	}
+	
+	
+	// underlying area "tone"
+	"playlooping"
+	{
+		"volume"	"0.4"
+		"pitch"		"100"
+		"wave"		"ambient\tones\office_room_tone_01.wav"
+	}
+	
+	"playlooping"
+	{
+		"volume"	"0.1"
+		"pitch"		"100"
+		"wave"		"ambient\survival\outside_forest_high_01.wav"
+	}
+	
+	
+	"playrandom"
+	{
+
+		"time"		"13, 35"
+		"volume"		"0.3, 0.5"
+		"pitch"		"100"
+		"position"	        "random"
+		"soundlevel"  	"SNDLVL_75dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient\survival\house_stress_01.wav"
+			"wave"	"ambient\survival\house_stress_02.wav"
+			"wave"	"ambient\survival\house_stress_03.wav"
+			"wave"	"ambient\survival\house_stress_04.wav"
+			"wave"	"ambient\survival\house_stress_05.wav"
+			"wave"	"ambient\survival\house_stress_06.wav"
+			"wave"	"ambient\survival\house_stress_07.wav"
+			"wave"	"ambient\survival\house_stress_08.wav"
+		}
+	
+		
+	}
+}
+
+"island_dust.inside.shack"
+{
+	"dsp" "6"
+	
+
+	
+	
+	
+	// underlying area "tone"
+	"playlooping"
+	{
+		"volume"	"0.5"
+		"pitch"		"100"
+		"wave"		"ambient\tones\office_room_tone_01.wav"
+	}
+	
+	"playrandom"
+	{
+
+		"time"		"13, 35"
+		"volume"		"0.3, 0.5"
+		"pitch"		"95, 105"
+		"position"	        "random"
+		"soundlevel"  	"SNDLVL_75dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient\survival\house_stress_01.wav"
+			"wave"	"ambient\survival\house_stress_02.wav"
+			"wave"	"ambient\survival\house_stress_03.wav"
+			"wave"	"ambient\survival\house_stress_04.wav"
+			"wave"	"ambient\survival\house_stress_05.wav"
+			"wave"	"ambient\survival\house_stress_06.wav"
+			"wave"	"ambient\survival\house_stress_07.wav"
+			"wave"	"ambient\survival\house_stress_08.wav"
+		}
+	
+		
+	}
+}
+
+"island_dust.inside.hanger"
+{
+	"dsp" "7"
+	
+	
+	"playsoundscape"
+	{
+		"name" "deepinfo"
+	}
+	
+	// underlying area "tone"
+	"playlooping"
+	{
+		"volume"	"0.5"
+		"pitch"		"100"
+		"wave"		"ambient\survival\interior_04.wav"
+	}
+}
+
+
+///////////////////////////////////////////////
+// old outdoors ambience - do not use
+//////////////////////////////////////////////
+
+
+"island_dust.inside.crawlspace"
+{
+	"dsp" "2"
+	// underlying area "tone"
+	"playlooping"
+	{
+		"volume"	"0.45"
+		"pitch"		"100"
+		"wave"		"ambient/atmosphere/css15_amb_baggage_spooky.wav"
+	}
+
+
+	// random noises
+	"playrandom"
+	{
+		"time"		"10,20"
+		"volume"	"0.3"
+		"pitch"		"90,110"
+
+		"rndwave"
+		{
+			"wave"	"ambient/animal/rodent_scratch_short_3.wav"
+			"wave"	"ambient/creatures/rats4.wav"
+			"wave"	"ambient/inferno/house_creak_04.wav"
+			"wave"	"ambient/inferno/house_creak_05.wav"
+			"wave"	"ambient/inferno/house_creak_06.wav"
+		}
+	}
+
+	// breathing
+	"playrandom"
+	{
+		"time"		"20,60"
+		"volume"	"0.05,0.1"
+		"pitch"		"95,100"
+
+		"rndwave"
+		{
+			"wave"	"hostage/huse/hostage_breath.wav"
+		}
+	}
+}
+
+
+
+////////////////
+//trees
+//////////////
+
+"trees"
+
+{
+	"dsp"	"1"
+	"fadetime" "1.0"
+
+	
+                "playrandom"
+                {
+                                "time"                   "5, 25"
+                                "volume"                             "0.5, 1.0"
+                                "pitch"                  "100, 103"
+                                "soundlevel"      "SNDLVL_75dB"
+                                "origin"                 "-6594.198242,-3883.581787,681.297913"
+ 
+                                "rndwave"
+                                {
+                                                "wave" "ambient/survival/tree_01.wav"
+                                                "wave" "ambient/survival/tree_02.wav"
+                                                "wave" "ambient/survival/tree_03.wav"
+                                                "wave" "ambient/survival/tree_04.wav"
+						"wave" "ambient/survival/tree_05.wav"
+						"wave" "ambient/survival/tree_06.wav"
+"wave" "ambient/survival/cicadas_01.wav"
+"wave" "ambient/survival/cicadas_02.wav"
+"wave" "ambient/survival/cicadas_03.wav"
+ 
+                                }
+                }
+	
+                "playrandom"
+                {
+                                "time"                   "5, 25"
+                                "volume"                             "0.5, 1.0"
+                                "pitch"                  "100, 103"
+                                "soundlevel"      "SNDLVL_75dB"
+                                "origin"                 "-6168.007813,-2745.784668,814.387512"
+ 
+                                "rndwave"
+                                {
+                                                "wave" "ambient/survival/tree_01.wav"
+                                                "wave" "ambient/survival/tree_02.wav"
+                                                "wave" "ambient/survival/tree_03.wav"
+                                                "wave" "ambient/survival/tree_04.wav"
+						"wave" "ambient/survival/tree_05.wav"
+						"wave" "ambient/survival/tree_06.wav"
+"wave" "ambient/survival/cicadas_01.wav"
+"wave" "ambient/survival/cicadas_02.wav"
+"wave" "ambient/survival/cicadas_03.wav"
+ 
+                                }
+                }
+	
+                "playrandom"
+                {
+                                "time"                   "5, 25"
+                                "volume"                             "0.5, 1.0"
+                                "pitch"                  "100, 103"
+                                "soundlevel"      "SNDLVL_75dB"
+                                "origin"                 "-7090.515137,-2320.714111,750.929260"
+ 
+                                "rndwave"
+                                {
+                                                "wave" "ambient/survival/tree_01.wav"
+                                                "wave" "ambient/survival/tree_02.wav"
+                                                "wave" "ambient/survival/tree_03.wav"
+                                                "wave" "ambient/survival/tree_04.wav"
+						"wave" "ambient/survival/tree_05.wav"
+						"wave" "ambient/survival/tree_06.wav"
+"wave" "ambient/survival/cicadas_01.wav"
+"wave" "ambient/survival/cicadas_02.wav"
+"wave" "ambient/survival/cicadas_03.wav"
+ 
+                                }
+                }
+	
+                "playrandom"
+                {
+                                "time"                   "5, 25"
+                                "volume"                             "0.5, 1.0"
+                                "pitch"                  "100, 103"
+                                "soundlevel"      "SNDLVL_75dB"
+                                "origin"                 "-6834.142578,-1624.380127,825.662598"
+ 
+                                "rndwave"
+                                {
+                                                "wave" "ambient/survival/tree_01.wav"
+                                                "wave" "ambient/survival/tree_02.wav"
+                                                "wave" "ambient/survival/tree_03.wav"
+                                                "wave" "ambient/survival/tree_04.wav"
+						"wave" "ambient/survival/tree_05.wav"
+						"wave" "ambient/survival/tree_06.wav"
+"wave" "ambient/survival/cicadas_01.wav"
+"wave" "ambient/survival/cicadas_02.wav"
+"wave" "ambient/survival/cicadas_03.wav"
+ 
+                                }
+                }
+	
+                "playrandom"
+                {
+                                "time"                   "5, 25"
+                                "volume"                             "0.5, 1.0"
+                                "pitch"                  "100, 103"
+                                "soundlevel"      "SNDLVL_75dB"
+                                "origin"                 "-7105.429199,-443.035431,973.231201"
+ 
+                                "rndwave"
+                                {
+                                                "wave" "ambient/survival/tree_01.wav"
+                                                "wave" "ambient/survival/tree_02.wav"
+                                                "wave" "ambient/survival/tree_03.wav"
+                                                "wave" "ambient/survival/tree_04.wav"
+						"wave" "ambient/survival/tree_05.wav"
+						"wave" "ambient/survival/tree_06.wav"
+"wave" "ambient/survival/cicadas_01.wav"
+"wave" "ambient/survival/cicadas_02.wav"
+"wave" "ambient/survival/cicadas_03.wav"
+ 
+                                }
+                }
+	
+                "playrandom"
+                {
+                                "time"                   "5, 25"
+                                "volume"                             "0.5, 1.0"
+                                "pitch"                  "100, 103"
+                                "soundlevel"      "SNDLVL_75dB"
+                                "origin"                 "-6174.296875,-232.463669,999.462524"
+ 
+                                "rndwave"
+                                {
+                                                "wave" "ambient/survival/tree_01.wav"
+                                                "wave" "ambient/survival/tree_02.wav"
+                                                "wave" "ambient/survival/tree_03.wav"
+                                                "wave" "ambient/survival/tree_04.wav"
+						"wave" "ambient/survival/tree_05.wav"
+						"wave" "ambient/survival/tree_06.wav"
+"wave" "ambient/survival/cicadas_01.wav"
+"wave" "ambient/survival/cicadas_02.wav"
+"wave" "ambient/survival/cicadas_03.wav"
+ 
+                                }
+                }
+	
+                "playrandom"
+                {
+                                "time"                   "5, 25"
+                                "volume"                             "0.5, 1.0"
+                                "pitch"                  "100, 103"
+                                "soundlevel"      "SNDLVL_75dB"
+                                "origin"                 "-5552.192383,-114.482933,1034.187744"
+ 
+                                "rndwave"
+                                {
+                                                "wave" "ambient/survival/tree_01.wav"
+                                                "wave" "ambient/survival/tree_02.wav"
+                                                "wave" "ambient/survival/tree_03.wav"
+                                                "wave" "ambient/survival/tree_04.wav"
+						"wave" "ambient/survival/tree_05.wav"
+						"wave" "ambient/survival/tree_06.wav"
+"wave" "ambient/survival/cicadas_01.wav"
+"wave" "ambient/survival/cicadas_02.wav"
+"wave" "ambient/survival/cicadas_03.wav"
+ 
+                                }
+                }
+	
+              
+	
+	
+	
+}
+
+/////////////////
+//waters edge
+///////////////
+"wateredge"
+{
+	"dsp"	"1"
+	"fadetime" "1.0"
+
+	
+               
+               
+               
+               
+                "playrandom"
+                {
+                                "time"                   "1, 10"
+                                "volume"             "0.05, 0.2"
+                                "pitch"                  "100,103"
+                                "soundlevel"      "SNDLVL_75dB"
+                                "origin"                 "-7832.388672,-4729.041504,257.058350"
+ 
+                                "rndwave"
+                                {
+                                                "wave" "ambient/canals/ambience_canals_water_lap_01.wav"
+                                                "wave" "ambient/canals/ambience_canals_water_lap_02.wav"
+                                                "wave" "ambient/canals/ambience_canals_water_lap_03.wav"
+                                                "wave" "ambient/canals/ambience_canals_water_lap_04.wav"
+                                                "wave" "ambient/canals/ambience_canals_water_lap_05.wav"
+                                                "wave" "ambient/canals/ambience_canals_water_lap_06.wav"
+                                                "wave" "ambient/canals/ambience_canals_water_lap_07.wav"
+                                                "wave" "ambient/canals/ambience_canals_water_lap_08.wav"
+                                }
+                }
+	
+                "playrandom"
+                {
+                                "time"                   "1, 10"
+                                "volume"             "0.05, 0.2"
+                                "pitch"                  "100,103"
+                                "soundlevel"      "SNDLVL_75dB"
+                                "origin"                 "-7796.759766,-4889.322754,254.304276"
+ 
+                                "rndwave"
+                                {
+                                                "wave" "ambient/canals/ambience_canals_water_lap_01.wav"
+                                                "wave" "ambient/canals/ambience_canals_water_lap_02.wav"
+                                                "wave" "ambient/canals/ambience_canals_water_lap_03.wav"
+                                                "wave" "ambient/canals/ambience_canals_water_lap_04.wav"
+                                                "wave" "ambient/canals/ambience_canals_water_lap_05.wav"
+                                                "wave" "ambient/canals/ambience_canals_water_lap_06.wav"
+                                                "wave" "ambient/canals/ambience_canals_water_lap_07.wav"
+                                                "wave" "ambient/canals/ambience_canals_water_lap_08.wav"
+                                }
+                }
+	
+              
+	
+	
+}
+

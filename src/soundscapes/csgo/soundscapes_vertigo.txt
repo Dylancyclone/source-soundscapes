@@ -1,0 +1,1291 @@
+// de_nuke soundscapes
+// Author: Chris Ashton, Turtle Rock Studios, Inc., August 2009
+
+
+//------------------------------------------------------------------------------------------
+//
+// Generic outdoors ambience
+//
+"vertigo.edges"
+{
+	"dsp" "0"
+	// wind sound
+	"playlooping"
+	{
+		"volume"		"0.15"
+		"pitch"		"100"
+		"wave"		"ambient/wind/dry_air_short.wav"
+	}
+
+	"playlooping"
+	{
+		"volume"		"0.15"
+		"pitch"		"100"
+		"wave"		"ambient/wind/wind1.wav"
+	}
+
+	"playlooping"
+	{
+		"volume"		"0.15"
+		"pitch"		"100"
+		"wave"		"ambient/wind/csgo_dust_wind_lp_02.wav"
+	}
+
+	"playlooping"
+	{
+		"volume"		"0.1"
+		"pitch"		"100"
+		"wave"		"ambient/atmosphere/amb_industrial_02.wav"
+	}
+
+	// Wind gusts
+	"playrandom"
+	{
+		"time"		"30,60"
+		"volume"	"0.1, 0.25"
+		"pitch"		"90,110"
+
+		"rndwave"
+		{
+			"wave"	"ambient/wind/wind_gust_01.wav"
+			"wave"	"ambient/wind/wind_gust_03.wav"
+			"wave"	"ambient/wind/wind_gust_04.wav"
+			"wave"	"ambient/wind/wind_gust_05.wav"
+			"wave"	"ambient/wind/wind_gust_06.wav"
+			"wave"	"ambient/wind/wind_gust_07.wav"
+			"wave"	"ambient/wind/wind_gust_08.wav"
+			"wave"	"ambient/wind/wind_gust_10_01.wav"
+			"wave"	"ambient/wind/wind_gust_12.wav"
+		}
+	}
+
+	// Planes flying overhead
+	"playrandom"
+	{
+		"time"		"60,120"
+		"volume"		"0.05,0.15"
+		"pitch"		"90,100"
+
+		"rndwave"
+		{
+			"wave"	"ambient/overhead/plane1.wav"
+			"wave"	"ambient/overhead/plane2.wav"
+			"wave"	"ambient/playonce/overhead/plane3.wav"
+		}
+	}
+
+
+	// Truck metal squeaks
+	"playrandom"
+	{
+		"time"		"20,60"
+		"volume"		".015,0.05"
+		"pitch"		"80,100"
+
+		"rndwave"
+		{
+			"wave"	"ambient/misc/equipment_stress1.wav"
+			"wave"	"ambient/misc/equipment_stress2.wav"
+			"wave"	"ambient/misc/equipment_stress3.wav"
+		}
+	}
+
+	"playrandom"
+	{
+		"time"		"30, 120"
+		"volume"		"0.05, 0.15"
+		"pitch"		"80,100"
+
+		"rndwave"
+		{
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb01.wav"
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb02.wav"
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb03.wav"
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb04.wav"
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb05.wav"
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb06.wav"
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb08.wav"
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb10.wav"
+		}
+	}
+
+	"playrandom"
+	{
+		"time"		"30, 120"
+		"volume"		".025, 0.1"
+		"pitch"		"80,100"
+
+		"rndwave"
+		{
+			"wave"	"ambient/tones/elev2.wav"
+			"wave"	"ambient/tones/elev3.wav"
+			"wave"	"ambient/tones/elev4.wav"
+		}
+	}
+
+	"playrandom"
+	{
+		"time"		"10, 30"
+		"volume"		"0.1, 0.4"
+		"pitch"		"80,100"
+		"soundlevel"  	"SNDLVL_95dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient/misc/car1.wav"
+			"wave"	"ambient/misc/car2.wav"
+		}
+	}
+
+	"playrandom"
+	{
+		"time"		"60, 120"
+		"volume"		"0.05, 0.1"
+		"pitch"		"80,100"
+		"soundlevel"  	"SNDLVL_95dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient/misc/ambulance1.wav"
+
+		}
+	}
+
+//	"playrandom"
+//	{
+//		"time"		"30, 75"
+//		"volume"	"0.2, 0.3"
+//		"pitch"		"80,100"
+//		"soundlevel"  	"SNDLVL_95dB"
+//
+//		"rndwave"
+//		{
+//			"wave"	"ambient/playonce/misc/garbage_truck1.wav"
+//			"wave"	"ambient/playonce/misc/truck_backup1.wav"
+//			"wave"	"ambient/playonce/misc/truck_drive1.wav"
+//			"wave"	"ambient/playonce/misc/truck_drive2.wav"
+//			"wave"	"ambient/playonce/misc/crane_move1.wav"
+//		}
+//	}
+
+	"playrandom"
+	{
+		"time"		"15, 60"
+		"volume"		"0.1,0.2"
+		"pitch"		"80,100"
+		"soundlevel"  	"SNDLVL_95dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient/misc/carhonk1.wav"
+			"wave"	"ambient/misc/carhonk2.wav"
+			"wave"	"ambient/misc/carhonk3.wav"
+
+		}
+	}
+
+	"playrandom"
+	{
+		"time"		"45, 60"
+		"volume"		"0.05, 0.15"
+		"pitch"		"80,100"
+
+
+		"rndwave"
+		{
+			"wave"	"ambient/playonce/machines/train_pass_far.wav"
+		}
+	}
+}
+
+//------------------------------------------------------------------------------------------
+//
+// Generic roof ambience
+//
+"vertigo.roof"
+{
+	"dsp" "21"
+
+	// wind gusts
+	"playrandom"
+	{
+		"time"		"30,60"
+		"volume"	"0.05, 0.15"
+		"pitch"		"90,110"
+
+		"rndwave"
+		{
+			"wave"	"ambient/wind/wind_gust_01.wav"
+			"wave"	"ambient/wind/wind_gust_03.wav"
+			"wave"	"ambient/wind/wind_gust_04.wav"
+			"wave"	"ambient/wind/wind_gust_05.wav"
+			"wave"	"ambient/wind/wind_gust_06.wav"
+			"wave"	"ambient/wind/wind_gust_07.wav"
+			"wave"	"ambient/wind/wind_gust_08.wav"
+			"wave"	"ambient/wind/wind_gust_10_01.wav"
+			"wave"	"ambient/wind/wind_gust_12.wav"
+		}
+	}
+
+
+	// wind sound
+	"playlooping"
+	{
+		"volume"		"0.15"
+		"pitch"		"100"
+		"wave"		"ambient/wind/dry_air_short.wav"
+	}
+
+	"playlooping"
+	{
+		"volume"		"0.25"
+		"pitch"		"100"
+		"wave"		"ambient/wind/wind1.wav"
+	}
+
+	"playlooping"
+	{
+		"volume"		"0.25"
+		"pitch"		"100"
+		"wave"		"ambient/wind/csgo_dust_wind_lp_02.wav"
+	}
+
+	"playlooping"
+	{
+		"volume"		"0.25"
+		"pitch"		"100"
+		"wave"		"ambient/atmosphere/amb_industrial_02.wav"
+	}
+
+
+	// Planes flying overhead
+	"playrandom"
+	{
+		"time"		"30, 80"
+		"volume"		"0.15, 0.25"
+		"pitch"		"90,100"
+
+		"rndwave"
+		{
+			"wave"	"ambient/overhead/plane1.wav"
+			"wave"	"ambient/overhead/plane2.wav"
+			"wave"	"ambient/playonce/overhead/plane3.wav"
+		}
+	}
+
+
+	// Truck metal squeaks
+	"playrandom"
+	{
+		"time"		"30, 120"
+		"volume"		"0.08, 0.1"
+		"pitch"		"80,100"
+
+		"rndwave"
+		{
+			"wave"	"ambient/misc/equipment_stress1.wav"
+			"wave"	"ambient/misc/equipment_stress2.wav"
+			"wave"	"ambient/misc/equipment_stress3.wav"
+		}
+	}
+
+	"playrandom"
+	{
+		"time"		"20, 40"
+		"volume"		"0.2,0.3"
+		"pitch"		"80,100"
+
+		"rndwave"
+		{
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb01.wav"
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb02.wav"
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb03.wav"
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb04.wav"
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb05.wav"
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb06.wav"
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb08.wav"
+			"wave"	"ambient/atmosphere/cs_metalscrapeverb10.wav"
+		}
+	}
+
+	"playrandom"
+	{
+		"time"		"10, 20"
+		"volume"		"0.05, 0.2"
+		"pitch"		"80,100"
+
+		"rndwave"
+		{
+			"wave"	"ambient/tones/elev2.wav"
+			"wave"	"ambient/tones/elev3.wav"
+			"wave"	"ambient/tones/elev4.wav"
+		}
+	}
+
+
+	"playrandom"
+	{
+		"time"		"15, 25"
+		"volume"		"0.1, 0.25"
+		"pitch"		"80,100"
+		"soundlevel"  	"SNDLVL_95dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient/misc/car1.wav"
+			"wave"	"ambient/misc/car2.wav"
+		}
+	}
+
+	"playrandom"
+	{
+		"time"		"10, 60"
+		"volume"		"0.05, 0.1"
+		"pitch"		"80,100"
+		"soundlevel"  	"SNDLVL_95dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient/playonce/heli_pass_distant11.wav"
+
+		}
+	}
+
+	"playrandom"
+	{
+		"time"		"36, 70"
+		"volume"		"0.1, 0.2"
+		"pitch"		"80,100"
+		"soundlevel"  	"SNDLVL_95dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient/misc/ambulance1.wav"
+
+		}
+	}
+
+	"playrandom"
+	{
+		"time"		"15, 70"
+		"volume"		"0.1, 0.25"
+		"pitch"		"80,100"
+		"soundlevel"  	"SNDLVL_95dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient/playonce/misc/garbage_truck1.wav"
+			"wave"	"ambient/playonce/misc/truck_backup1.wav"
+			"wave"	"ambient/playonce/misc/truck_drive1.wav"
+			"wave"	"ambient/playonce/misc/truck_drive2.wav"
+			"wave"	"ambient/playonce/misc/crane_move1.wav"
+		}
+	}
+
+	"playrandom"
+	{
+		"time"		"15, 35"
+		"volume"		"0.1, 0.2"
+		"pitch"		"80,100"
+		"soundlevel"  	"SNDLVL_95dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient/misc/carhonk1.wav"
+			"wave"	"ambient/misc/carhonk2.wav"
+			"wave"	"ambient/misc/carhonk3.wav"
+
+		}
+	}
+
+	"playrandom"
+	{
+		"time"		"20, 45"
+		"volume"		"0.05, 0.15"
+		"pitch"		"80,100"
+
+
+		"rndwave"
+		{
+			"wave"	"ambient/playonce/machines/train_pass_far.wav"
+		}
+	}
+
+}
+
+//------------------------------------------------------------------------------------------
+//
+// Generic indoors ambience
+//
+"vertigo.inside"
+{
+	"dsp" "10"
+	// underlying area "tone"
+	"playlooping"
+	{
+		"volume"	"0.25"
+		"pitch"		"100"
+		"wave"		"ambient/tones/industrial3_loop.wav"
+	}
+
+	"playlooping"
+	{
+		"volume"	"0.25"
+		"pitch"		"100"
+		"wave"		"ambient/tones/tunnel_wind_loop.wav"
+	}
+
+	"playlooping"
+	{
+		"volume"		"0.25"
+		"pitch"		"100"
+		"wave"		"ambient/wind/dry_air_short.wav"
+	}
+
+	"playlooping"
+	{
+		"volume"		"0.25"
+		"pitch"		"100"
+		"wave"		"ambient/wind/wind1.wav"
+	}
+
+	"playlooping"
+	{
+		"volume"		"0.25"
+		"pitch"		"100"
+		"wave"		"ambient/wind/csgo_dust_wind_lp_02.wav"
+	}
+}
+
+//------------------------------------------------------------------------------------------
+//
+// Generic indoors insulated ambience
+//
+"vertigo.insulated"
+{
+	"dsp" "2"
+	// underlying area "tone"
+	"playlooping"
+	{
+		"volume"	"0.25"
+		"pitch"		"100"
+		"wave"		"ambient/tones/roomtone1.wav"
+	}
+	
+	"playlooping"
+	{
+		"volume"	"0.25"
+		"pitch"		"100"
+		"wave"		"ambient/tones/tunnel_wind_loop.wav"
+	}
+
+	"playlooping"
+	{
+		"volume"		"0.25"
+		"pitch"		"100"
+		"wave"		"ambient/wind/dry_air_short.wav"
+	}
+
+	"playlooping"
+	{
+		"volume"		"0.25"
+		"pitch"		"100"
+		"wave"		"ambient/wind/wind1.wav"
+	}
+
+	"playlooping"
+	{
+		"volume"		"0.25"
+		"pitch"		"100"
+		"wave"		"ambient/wind/csgo_dust_wind_lp_02.wav"
+	}
+}
+
+//------------------------------------------------------------------------------------------
+//
+// All dumpsters have flies
+//
+"vertigo.flies"
+{
+	"playrandom"
+	{
+		"time"			"1,4"
+		"volume"		"0.5"
+		"pitch"			"90,110"
+		"soundlevel"  	"SNDLVL_58dB"
+
+		"rndwave"
+		{
+			"wave"	"ambient/animal/flies1.wav"
+			"wave"	"ambient/animal/flies2.wav"
+			"wave"	"ambient/animal/flies3.wav"
+			"wave"	"ambient/animal/flies4.wav"
+			"wave"	"ambient/animal/flies5.wav"
+		}
+	}
+}
+
+
+//------------------------------------------------------------------------------------------
+//
+// Bare lightbulb hum - used for all lightbulbs in the map
+//
+"vertigo.light"
+{
+
+	"playlooping"
+	{	
+		"pitch"			"100"
+		"volume"		"0.25"
+		"soundlevel"  	"SNDLVL_65dB"
+
+		"wave"	"ambient/misc/flour_light_loud.wav"
+	}
+}
+
+//------------------------------------------------------------------------------------------
+//
+// HVAC fan
+//
+"vertigo.hvacfan"
+{
+
+	"playlooping"
+	{	
+		"pitch"			"100"
+		"volume"		"0.4"
+		"soundlevel"  	"SNDLVL_65dB"
+
+		"wave"	"ambient\nuke\fan_01.wav"
+	}
+}
+
+//------------------------------------------------------------------------------------------
+//
+// HVAC fan loud
+//
+"vertigo.hvacfanloud"
+{
+
+	"playlooping"
+	{	
+		"pitch"			"100"
+		"volume"		"0.8"
+		"soundlevel"  	"SNDLVL_55dB"
+
+		"wave"	"ambient\nuke\fan_03.wav"
+	}
+}
+
+//------------------------------------------------------------------------------------------
+//
+// Vent outlet
+//
+"vertigo.ventoutlet"
+{
+
+	"playlooping"
+	{	
+		"pitch"			"100"
+		"volume"		"1"
+		"soundlevel"  	"SNDLVL_55dB"
+
+		"wave"	"ambient\machines\amb_bank_air_conditioner.wav"
+	}
+}
+
+//------------------------------------------------------------------------------------------
+//
+// A Small Power Transformer
+"vertigo.transformer"
+{
+
+	"playlooping"
+	{	
+		"pitch"			"100"
+		"volume"		"0.25"
+		"soundlevel"  	"SNDLVL_60dB"
+
+		"wave"	"ambient/machines/power_transformer_loop_2.wav"
+	}
+}
+
+//------------------------------------------------------------------------------------------
+//
+// A gas generator
+"vertigo.generator"
+{
+
+	"playlooping"
+	{	
+		"pitch"			"100"
+		"volume"		"0.25"
+		"soundlevel"  	"SNDLVL_75dB"
+
+		"wave"	"ambient/survival/machine_02.wav"
+	}
+}
+
+
+//------------------------------------------------------------------------------------------
+//
+// Forklift engine
+"vertigo.forklift"
+{
+
+	"playlooping"
+	{	
+		"pitch"			"100"
+		"volume"		"0.25"
+		"soundlevel"  	"SNDLVL_75dB"
+
+		"wave"	"ambient/machines/diesel_1.wav"
+	}
+}
+
+//------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------
+"vertigo.ctspawn"
+{
+	
+	"dsp" "21"
+	
+	"playsoundscape"
+	{
+		"name" "vertigo.edges"
+	}
+
+	// Position 0: Spotlight
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.light"
+	}
+
+	// Position 1: Spotlight
+	"playsoundscape"
+	{
+		"positionoverride"	"1"
+		"name"			"vertigo.light"
+	}
+
+	// Position 2: Spotlight
+	"playsoundscape"
+	{
+		"positionoverride"	"2"
+		"name"			"vertigo.light"
+	}
+
+	// Position 3: Generator
+	"playsoundscape"
+	{
+		"positionoverride"	"3"
+		"name"			"vertigo.generator"
+	}
+
+} 
+
+
+"vertigo.scaffolding"
+{
+	"dsp" "9"
+
+	"playsoundscape"
+	{
+		"name" "vertigo.inside"
+	}
+
+	// Position 0: Spotlight
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.light"
+	}
+
+	// Position 1: Spotlight
+	"playsoundscape"
+	{
+		"positionoverride"	"1"
+		"name"			"vertigo.light"
+	}
+
+}
+
+
+"vertigo.ceilingtile"
+{
+	"dsp"	"6"
+	
+	"playsoundscape"
+	{
+		"name" "vertigo.insulated"
+	}
+
+	// Position 0: Spotlight
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.light"
+	}
+
+}
+
+
+
+"vertigo.stairs"
+{
+
+	"playsoundscape"
+	{
+		"name" "vertigo.edges"
+	}
+
+	// Position 0: Power Box
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.transformer"
+	}
+
+	// Position 1: Generator
+	"playsoundscape"
+	{
+		"positionoverride"	"1"
+		"name"			"vertigo.generator"
+	}
+
+}
+
+"vertigo.stairsbase"
+{
+	"dsp"	"10"
+
+	"playsoundscape"
+	{
+		"name" "vertigo.edges"
+	}
+
+	// Position 0: Generator
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.generator"
+	}
+
+}
+
+"vertigo.tspawninside"
+{
+	"dsp"	"7"
+
+	"playsoundscape"
+	{
+		"name" "vertigo.inside"
+	}
+
+	// Position 0: Spotlight
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.light"
+	}
+
+	// Position 1: Spotlight
+	"playsoundscape"
+	{
+		"positionoverride"	"1"
+		"name"			"vertigo.light"
+	} 
+
+	// Position 2: Power Box
+	"playsoundscape"
+	{
+		"positionoverride"	"2"
+		"name"			"vertigo.transformer"
+	}
+
+}
+
+"vertigo.tspawn"
+{
+	"dsp"	"21"
+
+	"playsoundscape"
+	{
+		"name" "vertigo.edges"
+	}
+
+	// Position 0: Spotlight
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.light"
+	}
+
+	// Position 1: Power Box
+	"playsoundscape"
+	{
+		"positionoverride"	"1"
+		"name"			"vertigo.transformer"
+	}
+
+	// Position 2: Spotlight
+	"playsoundscape"
+	{
+		"positionoverride"	"2"
+		"name"			"vertigo.light"
+	}
+
+	// Position 3: Generator
+	"playsoundscape"
+	{
+		"positionoverride"	"3"
+		"name"			"vertigo.generator"
+	}
+
+}
+
+"vertigo.tspawngenerator"
+{
+
+	"dsp"	"10"
+
+	"playsoundscape"
+	{
+		"name" "vertigo.edges"
+	}
+
+	// Position 0: Generator
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.generator"
+	}
+
+	// Position 1: Spotlight
+	"playsoundscape"
+	{
+		"positionoverride"	"1"
+		"name"			"vertigo.light"
+	}
+
+	// Position 2: Power Box
+	"playsoundscape"
+	{
+		"positionoverride"	"2"
+		"name"			"vertigo.transformer"
+	}
+
+}
+
+"vertigo.ramp"
+{
+	"dsp"	"20"
+
+	"playsoundscape"
+	{
+		"name" "vertigo.roof"
+	}
+
+	// Position 0: Generator
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.generator"
+	}
+
+}
+
+"vertigo.cthole"
+{
+
+	"playsoundscape"
+	{
+		"name" "vertigo.insulated"
+	}
+
+	// Position 0: Spotlight
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.light"
+	}
+
+}
+
+"vertigo.thole"
+{
+
+	"playsoundscape"
+	{
+		"name" "vertigo.insulated"
+	}
+
+	// Position 0: Spotlight
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.light"
+	}
+
+}
+
+"vertigo.bombb"
+{
+	"dsp" "0"
+	
+	"playsoundscape"
+	{
+		"name" "vertigo.edges"
+	}
+
+	// Position 0: Generator
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.generator"
+	}
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//
+// Soundscapes for reworked version
+//
+//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+"vertigo.new.bombsitea"
+{
+	"dsp" "0"
+	
+	"playsoundscape"
+	{
+		"name" "vertigo.edges"
+	}
+
+	// Position 0: Light
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.light"
+	}
+	
+	// Position 1: Construction crane
+	
+		"playrandom"
+	{
+		"time"		"5,30"
+		"volume"	        "0.4"
+		"pitch"		"90,100"
+		"soundlevel"  	"SNDLVL_90dB"
+		"position"            "1" 
+
+		"rndwave"
+		{
+			"wave"	"(ambient\misc\metal_str5.wav"
+			"wave"	"(ambient\misc\metal_str4.wav"
+			"wave"	"(ambient\misc\metal_str3.wav"
+			"wave"	"(ambient\misc\metal_str2.wav"
+			"wave"	"(ambient\misc\metal_str1.wav"
+		}
+	}
+	
+}
+
+"vertigo.new.bombsiteb"
+{
+	"dsp" "0"
+	
+	"playsoundscape"
+	{
+		"name" "vertigo.edges"
+	}
+
+	// Position 0: Generator
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.generator"
+	}
+	
+	// Position 1: Fan 1
+	
+	"playsoundscape"
+	{
+		"positionoverride"	"1"
+		"name"			"vertigo.hvacfan"
+	}
+	
+	// Position 2: Fan 2
+	
+	"playsoundscape"
+	{
+		"positionoverride"	"2"
+		"name"			"vertigo.hvacfan"
+	}
+
+}
+
+"vertigo.new.ctspawn"
+{
+	"dsp" "0"
+	
+	"playsoundscape"
+	{
+		"name" "vertigo.edges"
+	}
+
+	// Position 0: Generator
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.generator"
+	}
+	
+	// Position 1: Light
+	"playsoundscape"
+	{
+		"positionoverride"	"1"
+		"name"			"vertigo.light"
+	}
+	
+}
+
+"vertigo.new.tspawn"
+{
+	"dsp" "0"
+	
+	"playsoundscape"
+	{
+		"name" "vertigo.edges"
+	}
+	
+	// Position 0: Generator
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.generator"
+	}
+	
+	// Position 1: Dumpster
+	"playsoundscape"
+	{
+		"positionoverride"	"1"
+		"name"			"vertigo.flies"
+	}
+
+	// Position 2: Electrical boxes
+	"playsoundscape"
+	{
+		"positionoverride"	"2"
+		"name"			"vertigo.transformer"
+	}	
+	
+	// Position 3: Electrical boxes
+	"playsoundscape"
+	{
+		"positionoverride"	"3"
+		"name"			"vertigo.transformer"
+	}	
+	
+}
+
+"vertigo.new.middle"
+{
+	"dsp" "0"
+	
+	"playsoundscape"
+	{
+		"name" "vertigo.edges"
+	}
+
+}
+
+"vertigo.new.corridor.ct"
+{
+	"dsp" "0"
+	
+	"playsoundscape"
+	{
+		"name" "vertigo.insulated"
+	}
+
+	// Position 0: Roof vent
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.ventoutlet"
+	}
+
+}
+
+"vertigo.new.elevator.upperct"
+{
+	"dsp" "0"
+	
+	"playsoundscape"
+	{
+		"name" "vertigo.insulated"
+	}
+
+	// Position 0: Roof vent
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.ventoutlet"
+	}
+
+}
+
+"vertigo.new.elevator.uppert"
+{
+	"dsp" "0"
+	
+	"playsoundscape"
+	{
+		"name" "vertigo.insulated"
+	}
+
+	// Position 0: Dumpster
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.flies"
+	}
+	
+	// Position 1: Open elevator door
+	"playlooping"
+	{	
+		"position"		"1"
+		"pitch"			"100"
+		"volume"		"0.5"
+
+		"wave"	"ambient/tones/tunnel_wind_loop.wav"
+	}
+
+}
+
+"vertigo.new.elevator.lowert"
+{
+	"dsp" "0"
+	
+	"playsoundscape"
+	{
+		"name" "vertigo.inside"
+	}
+
+	// Position 0: Forklift
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.forklift"
+	}
+	
+	// Position 1: Elevator shaft
+	"playlooping"
+	{	
+		"position"		"1"
+		"pitch"			"100"
+		"volume"		"0.5"
+
+		"wave"	"ambient/tones/tunnel_wind_loop.wav"
+	}
+
+}
+
+"vertigo.new.thalls"
+{
+	"dsp" "0"
+	
+	"playsoundscape"
+	{
+		"name" "vertigo.inside"
+	}
+
+	// Position 0: Spotlight
+	"playsoundscape"
+	{
+		"positionoverride"	"0"
+		"name"			"vertigo.light"
+	}
+	
+	// Position 1: Fan 1
+	"playsoundscape"
+	{
+		"positionoverride"	"1"
+		"name"			"vertigo.hvacfanloud"
+	}
+	
+	// Position 2: Fan 2
+	"playsoundscape"
+	{
+		"positionoverride"	"2"
+		"name"			"vertigo.hvacfanloud"
+	}
+	
+	// Position 3: Fan 3, small
+	"playsoundscape"
+	{
+		"positionoverride"	"3"
+		"name"			"vertigo.hvacfan"
+	}
+	
+	// Position 4: Generator
+	"playsoundscape"
+	{
+		"positionoverride"	"4"
+		"name"			"vertigo.generator"
+	}
+
+}
+
+"vertigo.new.elevator.shaft"
+{
+	"dsp" "0"
+	
+	"playlooping"
+	{
+		"volume"	"1"
+		"pitch"		"100"
+		"wave"		"ambient/tones/tunnel_wind_loop.wav"
+	}
+	
+
+	"playlooping"
+	{
+		"volume"		"0.15"
+		"pitch"		"100"
+		"wave"		"ambient/wind/dry_air_short.wav"
+	}
+
+
+	"playlooping"
+	{
+		"volume"		"0.1"
+		"pitch"		"100"
+		"wave"		"ambient/atmosphere/amb_industrial_02.wav"
+	}
+
+	// Cables
+	"playrandom"
+	{
+		"time"		"30,60"
+		"volume"	"0.1, 0.25"
+		"pitch"		"90,110"
+
+		"rndwave"
+		{
+			"wave"	"ambient/atmosphere/cs_cable_rattle01.wav"
+			"wave"	"ambient/atmosphere/cs_cable_rattle02.wav"
+			"wave"	"ambient/atmosphere/cs_cable_rattle03.wav"
+			"wave"	"ambient/atmosphere/cs_cable_rattle04.wav"
+			"wave"	"ambient/atmosphere/cs_cable_rattle05.wav"
+		}
+	}
+
+
+}

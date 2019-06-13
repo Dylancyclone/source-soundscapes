@@ -42,7 +42,6 @@ A work-in-progress website to play source engine soundscapes in a webbrowser. Th
 - [X] Select Game
 - [X] Select Soundscape
 - [X] Global Volume Slider
+- [ ] Save/Name Favorites
 - [ ] Mute Channel
-- [ ] Import Soundscape
-- [ ] Support Custom Environments
 - [ ] Smart Random Sounds?

@@ -390,7 +390,7 @@
 	
 	"playsoundscape"
  	{
-		"name"	"TestChamber_Destruction.Grain_Click"
+		"name"	"Testchamber_Destruction.Grain_Click"
 		"volume" "0.7"
 	}
 	

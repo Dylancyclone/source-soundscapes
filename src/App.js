@@ -210,6 +210,11 @@ export default class Example extends React.Component {
 
   renderChannels(soundscape) {
     var text = [];
+    if (this.state.soundscapes[soundscape] === undefined)
+    {
+      console.error("ERROR: Cannot find soundscript: " + soundscape)
+      return;
+    }
 		this.state.soundscapes[soundscape].channels.forEach(async (channel, i) => {
       //if (this.channels[index]) this.channels[index].stop(); //In case something is already there and hasn't been stopped
       var filename;
@@ -277,7 +282,7 @@ export default class Example extends React.Component {
               try {
                   buffer = await this.channels[index].decodeAudioData(event.target.result);
               } catch (err) {
-                console.log("Error: " + err + ", with file: " + filename + ". Does file exist?")
+                console.warn("Error: " + err + ", with file: " + filename + ". Does file exist?")
                   return;
               }
 
@@ -342,7 +347,7 @@ export default class Example extends React.Component {
         }))-1;
 
         //this.emitter.on('stop', () => this.channels[index].seekPercent(0));
-        this.emitter.on('err', () => {
+        this.emitter.on('err', (c) => {
           filename = "/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
           fetch(filename)
             .then(resp => resp.blob())
@@ -353,8 +358,15 @@ export default class Example extends React.Component {
                 try {
                     buffer = await this.channels[index].decodeAudioData(event.target.result);
                 } catch (err) {
-                  console.log("Error: " + err + ", with file: " + filename + ". Does file exist?")
-                  this.emitter.emit('err')
+                  console.warn("Error: " + err + ", with file: " + filename + ". Does file exist? Retry number: "+ c)
+                  if (c>9)
+                  {
+                    console.error("Error: Channel keeps failing, stopping attempts.")
+                  }
+                  else
+                  {
+                    this.emitter.emit('err', c+1)
+                  }
                   return;
                 }
 
@@ -382,8 +394,8 @@ export default class Example extends React.Component {
                 try {
                     buffer = await this.channels[index].decodeAudioData(event.target.result);
                 } catch (err) {
-                  console.log("Error: " + err + ", with file: " + filename + ". Does file exist?")
-                  this.emitter.emit('err')
+                  console.warn("Error: " + err + ", with file: " + filename + ". Does file exist?")
+                  this.emitter.emit('err', 1)
                   return;
                 }
 
@@ -426,8 +438,8 @@ export default class Example extends React.Component {
               try {
                 buffer = await this.channels[index].decodeAudioData(event.target.result);
               } catch (err) {
-                console.log("Error: " + err + ", with file: " + filename + ". Does file exist?")
-                this.emitter.emit('err')
+                console.warn("Error: " + err + ", with file: " + filename + ". Does file exist?")
+                this.emitter.emit('err', 1)
                 return;
               }
 

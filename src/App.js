@@ -34,7 +34,9 @@ export default class Example extends React.Component {
     Object.keys(Items).forEach((game) => {
       games.push(game)
       Object.keys(Items[game]).forEach((e) => {
-        soundscapes[game] = {...soundscapes[game], ...this.parseSoundscape(Items[game][e])}
+        var parsed = this.parseSoundscape(Items[game][e]);
+        soundscapes = {...soundscapes, ...parsed}
+        soundscapes[game] = {...soundscapes[game], ...parsed}
       })
     })
     //console.log(sounds)
@@ -208,7 +210,7 @@ export default class Example extends React.Component {
 
   renderChannels(soundscape) {
     var text = [];
-		this.state.soundscapes[this.state.currentGame][soundscape].channels.forEach(async (channel, i) => {
+		this.state.soundscapes[soundscape].channels.forEach(async (channel, i) => {
       //if (this.channels[index]) this.channels[index].stop(); //In case something is already there and hasn't been stopped
       var filename;
       var volume;

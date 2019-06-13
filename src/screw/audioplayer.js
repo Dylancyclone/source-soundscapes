@@ -84,8 +84,8 @@ class AudioPlayer {
                 if (this.loop)
                 {
                     for (let i = 0; i < numFrames; i++) {
-                        target[i * 2] = l[(i + position) % (buffer.duration * this.context.sampleRate)];
-                        target[i * 2 + 1] = r[(i + position) % (buffer.duration * this.context.sampleRate)];
+                        target[i * 2] = l[Math.floor(((i + position) % (buffer.duration * this.context.sampleRate)))];
+                        target[i * 2 + 1] = r[Math.floor(((i + position) % (buffer.duration * this.context.sampleRate)))];
                     }
                 }
                 else

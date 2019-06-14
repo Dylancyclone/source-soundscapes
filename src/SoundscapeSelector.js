@@ -1,31 +1,44 @@
 import React from 'react';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+import './App.css'
 
 export default class SoundscapeSelector extends React.Component {
-  render() {
-    return (
-      <label>
-        Select a Soundscape:{' '}
-        <select  onChange={this.handleSoundscapeChange.bind(this)}>
-          <option />
-          {this.renderSoundscapeOptions()}
-        </select>
-      </label>
-    );
+  constructor(props) {
+    super(props);
+    this.state = {selectedOption:''};
   }
-
-  renderSoundscapeOptions() {
-    var build = [];
-    for (var i in this.props.options) {
-      build.push (
-        <option key={i} value={i}>
-          {i}
-        </option>
+  render() {
+    if (this.props.options === undefined)
+    {
+      return (
+        <div className="header-item">
+          <p>Select a Soundscape:</p>
+        </div>
       );
     }
-    return build;
+    else
+    {
+      return (
+        <div className="header-item">
+          <p>Select a Soundscape:</p>
+          <Dropdown
+            className='dropdown'
+            controlClassName='dropdown-control'
+            menuClassName='dropdown-menu'
+            options={Object.keys(this.props.options)}
+            onChange={this.handleSoundscapeChange.bind(this)}
+            value={this.state.selectedOption}
+            autoScrollToSelectedOption={true}
+            placeholder="Select an option..."
+            />
+        </div>
+      );
+    }
   }
 
   handleSoundscapeChange(ev) {
-    this.props.onSoundscapeSelected(ev.target.value);
+    this.setState({selectedOption: ev.value})
+    this.props.onSoundscapeSelected(ev.value);
   }
 }

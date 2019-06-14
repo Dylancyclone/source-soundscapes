@@ -45,3 +45,6 @@ A work-in-progress website to play source engine soundscapes in a webbrowser. Th
 - [ ] Save/Name Favorites
 - [ ] Mute Channel
 - [ ] Smart Random Sounds?
+
+
+All Sounds and Soundscripts belong to Valve Software, I do not claim any ownership over them.

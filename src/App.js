@@ -4,7 +4,10 @@ import EventEmitter from 'eventemitter3';
 import SoundscapeSelector from './SoundscapeSelector';
 import GameSelector from './GameSelector';
 
-import './App.css'
+import sourceLogo from './images/source-logo.png';
+import githubLogo from './images/github.png';
+
+import './App.css';
 
 import * as Items from './soundscapes';
 
@@ -203,7 +206,7 @@ export default class Example extends React.Component {
   renderCurrentSoundscape() {
     return (
       <p>
-        Current Soundscape {this.state.currentSoundscape}.
+        Current Soundscape: {this.state.currentSoundscape}
       </p>
     );
   }
@@ -475,22 +478,47 @@ export default class Example extends React.Component {
     else
     {
       return (
-        <div>
-          <GameSelector
-            options={this.state.games}
-            selectedSoundscape={this.state.currentGame}
-            onGameSelected={this.handleGameSelected}
-          />
-          <SoundscapeSelector
-            options={this.state.soundscapes[this.state.currentGame]}
-            selectedSoundscape={this.state.currentSoundscape}
-            onSoundscapeSelected={this.handleSoundscapeSelected}
-          />
-          <div className="slidecontainer">
-            <input type="range" min="0.01" max="2" defaultValue="1" onChange={(e) => {this.handleVolumeUpdate(e)}} step="0.01" className="slider"/>
+        <div className="body">
+          <div className="title">
+            <div className="title-item">
+              <img src={sourceLogo} alt=""/>
+              <p>Soundscapes</p>
+            </div>
+            <div className="title-item">
+              <div style={{flexGrow:1}}></div>
+              <a href="https://github.com/Dylancyclone/source-soundscapes"><img src={githubLogo} alt="" align="right"/></a>
+            </div>
           </div>
-          {this.state.currentSoundscape && this.renderCurrentSoundscape()}
-          {this.state.currentSoundscape !=='' && this.renderChannels(this.state.currentSoundscape)}
+          <div className="header">
+            <GameSelector
+              options={this.state.games}
+              selectedSoundscape={this.state.currentGame}
+              onGameSelected={this.handleGameSelected}
+            />
+            <SoundscapeSelector
+              options={this.state.soundscapes[this.state.currentGame]}
+              selectedSoundscape={this.state.currentSoundscape}
+              onSoundscapeSelected={this.handleSoundscapeSelected}
+            />
+            <div className="controls">
+              {true && <p className="star-inactive">☆</p>}
+              {true && <p className="star-active">★</p>}
+              
+              <p className="stop">⯃</p>
+            </div>
+            <div className="slidecontainer">
+              <p>Volume</p>
+              <input type="range" min="0.01" max="2" defaultValue="1" onChange={(e) => {this.handleVolumeUpdate(e)}} step="0.01" className="slider"/>
+            </div>
+          </div>
+          <div className="content">
+            {this.state.currentSoundscape && this.renderCurrentSoundscape()}
+            {this.state.currentSoundscape !=='' && this.renderChannels(this.state.currentSoundscape)}
+          </div>
+          <div className="footer">
+          <p>Copyright © <a href="http://lathrum.com/dylan/portfolio/" target="_blank">Dylan Lathrum</a>, 2019.</p>
+          <p>All sounds and soundscripts belong to Valve Software.</p>
+          </div>
         </div>
       );
     }

@@ -3,7 +3,7 @@ import AudioPlayer from './screw/audioplayer';
 import EventEmitter from 'eventemitter3';
 import SoundscapeSelector from './SoundscapeSelector';
 import GameSelector from './GameSelector';
-import Favorite from './favorite';
+import Controls from './controls';
 
 import sourceLogo from './images/source-logo.png';
 import githubLogo from './images/github.png';
@@ -11,6 +11,7 @@ import githubLogo from './images/github.png';
 import './App.css';
 
 import * as Items from './soundscapes';
+import * as BackgroundImages from './images/backgrounds';
 
 let previousVolume = 1;
 //let sounds = [];
@@ -35,6 +36,7 @@ export default class Example extends React.Component {
 
 		this.handleFavorite = this.handleFavorite.bind(this);
 		this.handleUnfavorite = this.handleUnfavorite.bind(this);
+		this.handleStop = this.handleStop.bind(this);
   }
 
   async componentDidMount() {
@@ -257,14 +259,6 @@ export default class Example extends React.Component {
     //console.log(this.favorites)
   }
 
-  renderCurrentSoundscape() {
-    return (
-      <p>
-        Current Soundscape: {this.state.currentSoundscape}
-      </p>
-    );
-  }
-
   renderChannels(soundscape) {
     var text = [];
     if (this.state.soundscapes[soundscape] === undefined)
@@ -349,7 +343,8 @@ export default class Example extends React.Component {
           });
           text.push(
             <div key={JSON.stringify(channel)}>
-              <p>{JSON.stringify(channel)}</p>
+              <p className='channelType'>Loop:</p>
+              <p className='channelDetail'>{channel.wave.split('/')[channel.wave.split('/').length-1].split('.')[0]}</p>
             </div>
           );
       }
@@ -509,7 +504,8 @@ export default class Example extends React.Component {
           });
           text.push(
             <div key={JSON.stringify(channel)}>
-              <p>{JSON.stringify(channel)}</p>
+              <p className='channelType'>{parseFloat(channel.time.split(',')[0])} - {parseFloat(channel.time.split(',')[1])}s:</p>
+              <p className='channelDetail'>{channel.rndwave.map((e) =>{return e.split('/')[e.split('/').length-1].split('.')[0]+", "})}</p>
             </div>
           );
       }
@@ -553,25 +549,25 @@ export default class Example extends React.Component {
               favorites={this.favorites}
               onSoundscapeSelected={this.handleSoundscapeSelected}
             />
-            <div className="controls">
-              <Favorite
-                favorites={this.favorites}
-                selectedSoundscape={this.state.currentSoundscape}
-                handleFavorite={this.handleFavorite}
-                handleUnfavorite={this.handleUnfavorite}
-              />
-              
-              <p className="stop" onClick={() => this.handleStop()}>⯃</p>
-            </div>
+            <Controls
+              favorites={this.favorites}
+              selectedSoundscape={this.state.currentSoundscape}
+              handleFavorite={this.handleFavorite}
+              handleUnfavorite={this.handleUnfavorite}
+              handleStop={this.handleStop}
+            />
             <div className="slidecontainer">
               <p>Volume</p>
               <input type="range" min="0.01" max="2" defaultValue="1" onChange={(e) => {this.handleVolumeUpdate(e)}} step="0.01" className="slider"/>
             </div>
           </div>
-          <div className="content">
-            {this.state.currentSoundscape && this.renderCurrentSoundscape()}
-            {this.state.currentSoundscape !=='' && this.renderChannels(this.state.currentSoundscape)}
-          </div>
+          {this.state.currentGame &&
+            <div className="content" style={{backgroundImage: `url(${BackgroundImages[this.state.currentGame.toLowerCase()][Math.floor(this.randomBetween(1,6))]})`}}>
+              <div className="content-text">
+                {this.state.currentSoundscape !=='' && this.renderChannels(this.state.currentSoundscape)}
+              </div>
+            </div>
+          }
           <div className="footer">
           <p>Copyright © <a href="http://lathrum.com/dylan/portfolio/" target="_blank">Dylan Lathrum</a>, 2019.</p>
           <p>All sounds and soundscripts belong to Valve Software.</p>

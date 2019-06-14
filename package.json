@@ -141,6 +141,8 @@
             "jsx",
             "javascript",
             "txt",
+			"png",
+			"jpg",
             ""
           ],
           "useCamelCase": true

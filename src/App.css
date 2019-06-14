@@ -67,6 +67,7 @@
   background-color: #525252;
   color: #fbf7f1;
   border: none;
+  max-height: 500px;
 }
 .Dropdown-option {
   color: #fbf7f1;
@@ -74,6 +75,13 @@
 .Dropdown-option :hover {
   background-color: #fbf7f1;
   color: #525252;
+}
+.favorited:after {
+  color: #f79a10;
+  content: "★";
+  float: right;
+  font-size: 32px;
+  margin-top: -15px;
 }
 
 .slidecontainer {
@@ -133,6 +141,7 @@
 }
 .controls p {
   margin: 0px;
+  cursor: pointer;
 }
 
 .star-active {

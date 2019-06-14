@@ -3,6 +3,7 @@ import AudioPlayer from './screw/audioplayer';
 import EventEmitter from 'eventemitter3';
 import SoundscapeSelector from './SoundscapeSelector';
 import GameSelector from './GameSelector';
+import Favorite from './favorite';
 
 import sourceLogo from './images/source-logo.png';
 import githubLogo from './images/github.png';
@@ -29,9 +30,14 @@ export default class Example extends React.Component {
 
     this.channels = [];
     this.timeouts = [];
+
+    this.favorites = [];
+
+		this.handleFavorite = this.handleFavorite.bind(this);
+		this.handleUnfavorite = this.handleUnfavorite.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     var games = [];
     var soundscapes = {};
     Object.keys(Items).forEach((game) => {
@@ -42,6 +48,11 @@ export default class Example extends React.Component {
         soundscapes[game] = {...soundscapes[game], ...parsed}
       })
     })
+    games.push("FAVORITES");
+
+    this.favorites = JSON.parse(await localStorage.getItem('SourceSoundscapes.favorites'))||[];
+    console.log(this.favorites)
+    if (this.favorites !== null && this.favorites.length !== 0) {soundscapes["FAVORITES"] = Object.assign.apply(null, this.favorites.map(x =>({[x]:0})))};
     //console.log(sounds)
     this.setState({
       games:games,
@@ -180,9 +191,18 @@ export default class Example extends React.Component {
   }
 
   handleSoundscapeSelected = (soundscape) => {
-    this.setState({ currentSoundscape: soundscape});
+    var soundscapes = this.state.soundscapes;
+    if (this.favorites !== null && this.favorites.length !== 0)
+    {
+      soundscapes["FAVORITES"] = Object.assign.apply(null, this.favorites.map(x =>({[x]:0})))
+    }
+    else if (this.favorites !== null && this.favorites.length === 0)
+    {
+      soundscapes["FAVORITES"] = [];
+    }
+
+    this.setState({ soundscapes:soundscapes, currentSoundscape: soundscape});
     console.log("Selected Soundscape:", soundscape)
-    console.log(this.state.soundscapes[this.state.currentGame][soundscape])
     this.channels.forEach((channel) => {channel.pause();})
     this.timeouts.forEach((timeout) => {clearTimeout(timeout);})
     this.channels = [];
@@ -190,7 +210,17 @@ export default class Example extends React.Component {
   }
 
   handleGameSelected = (game) => {
-    this.setState({ currentGame: game, currentSoundscape:''});
+    var soundscapes = this.state.soundscapes;
+    if (this.favorites !== null && this.favorites.length !== 0)
+    {
+      soundscapes["FAVORITES"] = Object.assign.apply(null, this.favorites.map(x =>({[x]:0})))
+    }
+    else if (this.favorites !== null && this.favorites.length === 0)
+    {
+      soundscapes["FAVORITES"] = [];
+    }
+    
+    this.setState({ soundscapes:soundscapes, currentGame: game, currentSoundscape:''});
     console.log("Selected game:", game)
     this.channels.forEach((channel) => {channel.pause();})
     this.timeouts.forEach((timeout) => {clearTimeout(timeout);})
@@ -201,6 +231,30 @@ export default class Example extends React.Component {
   handleVolumeUpdate = (e) => {
     this.channels.forEach((channel) => {channel.volume = channel.volume / previousVolume * parseFloat(e.target.value);})
     previousVolume = e.target.value;
+  }
+
+  handleStop() {
+    console.log("Stopped playback")
+    this.channels.forEach((channel) => {channel.pause();})
+    this.timeouts.forEach((timeout) => {clearTimeout(timeout);})
+    this.channels = [];
+    this.timeouts = [];
+  }
+
+  handleFavorite() {
+    if (!this.favorites.includes(this.state.currentSoundscape)) {this.favorites.push(this.state.currentSoundscape)}
+    localStorage.setItem('SourceSoundscapes.favorites', JSON.stringify(this.favorites));
+    console.log("Added "+this.state.currentSoundscape+" to favorites")
+    //console.log(this.favorites)
+  }
+
+  handleUnfavorite() {
+    this.favorites = this.favorites.filter((item) => { 
+      return item !== this.state.currentSoundscape
+    })
+    localStorage.setItem('SourceSoundscapes.favorites', JSON.stringify(this.favorites));
+    console.log("Removed "+this.state.currentSoundscape+" from favorites")
+    //console.log(this.favorites)
   }
 
   renderCurrentSoundscape() {
@@ -492,19 +546,22 @@ export default class Example extends React.Component {
           <div className="header">
             <GameSelector
               options={this.state.games}
-              selectedSoundscape={this.state.currentGame}
               onGameSelected={this.handleGameSelected}
             />
             <SoundscapeSelector
               options={this.state.soundscapes[this.state.currentGame]}
-              selectedSoundscape={this.state.currentSoundscape}
+              favorites={this.favorites}
               onSoundscapeSelected={this.handleSoundscapeSelected}
             />
             <div className="controls">
-              {true && <p className="star-inactive">☆</p>}
-              {true && <p className="star-active">★</p>}
+              <Favorite
+                favorites={this.favorites}
+                selectedSoundscape={this.state.currentSoundscape}
+                handleFavorite={this.handleFavorite}
+                handleUnfavorite={this.handleUnfavorite}
+              />
               
-              <p className="stop">⯃</p>
+              <p className="stop" onClick={() => this.handleStop()}>⯃</p>
             </div>
             <div className="slidecontainer">
               <p>Volume</p>

@@ -6,8 +6,41 @@ import './App.css'
 export default class SoundscapeSelector extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {selectedOption:''};
+    this.state = {
+      selectedOption:'',
+      options:{},
+    };
   }
+
+  componentDidUpdate(prevProps) {
+    var options = [];
+    if (prevProps.options !== undefined)
+    {
+      if(Object.keys(prevProps.options).length!==Object.keys(this.props.options).length)
+      {
+        options = Object.keys(this.props.options).map((e) => {
+          return {
+            value: e,
+            label: e,
+            className:this.props.favorites.includes(e) ? 'favorited' : ''
+          };
+        })
+        this.setState({options:options, selectedOption:''});
+      }
+    }
+    else if (this.props.options !== undefined)
+    {
+      options = Object.keys(this.props.options).map((e) => {
+        return {
+          value: e,
+          label: e,
+          className:this.props.favorites.includes(e) ? 'favorited' : ''
+        };
+      })
+      this.setState({options:options});
+    }
+  }
+
   render() {
     if (this.props.options === undefined)
     {
@@ -26,7 +59,7 @@ export default class SoundscapeSelector extends React.Component {
             className='dropdown'
             controlClassName='dropdown-control'
             menuClassName='dropdown-menu'
-            options={Object.keys(this.props.options)}
+            options={this.state.options}
             onChange={this.handleSoundscapeChange.bind(this)}
             value={this.state.selectedOption}
             autoScrollToSelectedOption={true}
@@ -37,8 +70,19 @@ export default class SoundscapeSelector extends React.Component {
     }
   }
 
-  handleSoundscapeChange(ev) {
+  async handleSoundscapeChange(ev) {
     this.setState({selectedOption: ev.value})
-    this.props.onSoundscapeSelected(ev.value);
+    await this.props.onSoundscapeSelected(ev.value)
+    
+    //Wait for props to update...
+
+    var options = Object.keys(this.props.options).map((e) => {
+      return {
+        value: e,
+        label: e,
+        className:this.props.favorites.includes(e) ? 'favorited' : ''
+      };
+    })
+    this.setState({options:options});
   }
 }

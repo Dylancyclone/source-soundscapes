@@ -2,7 +2,7 @@ const {SimpleFilter, SoundTouch} = require('./soundtouch');
 
 const BUFFER_SIZE = 2048;
 
-class AudioPlayer {
+export default class AudioPlayer {
     constructor({emitter, pitch, tempo, volume, pan, loop}) {
         this.loop = loop;
 
@@ -142,5 +142,3 @@ class AudioPlayer {
         }
     }
 }
-
-module.exports = AudioPlayer;

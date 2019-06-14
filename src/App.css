@@ -199,7 +199,7 @@
   font-size: 20px;
   padding:25px;
   background: #26262686;
-  overflow-y: scroll;
+  overflow-y: auto;
   border-radius: 10px;
   width:75%;
   height:75%;

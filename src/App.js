@@ -20,7 +20,7 @@ export default class Example extends React.Component {
   constructor(props) {
     super(props);
     //this.readTextFile(process.env.PUBLIC_URL + '/soundscapes/hl2/soundscapes_town.txt');
-    console.log(Items)
+    //console.log(Items)
 
     this.state = {
       games: [],
@@ -53,7 +53,7 @@ export default class Example extends React.Component {
     games.push("FAVORITES");
 
     this.favorites = JSON.parse(await localStorage.getItem('SourceSoundscapes.favorites'))||[];
-    console.log(this.favorites)
+    //console.log(this.favorites)
     if (this.favorites !== null && this.favorites.length !== 0) {soundscapes["FAVORITES"] = Object.assign.apply(null, this.favorites.map(x =>({[x]:0})))};
     //console.log(sounds)
     this.setState({
@@ -323,7 +323,7 @@ export default class Example extends React.Component {
         this.emitter.on('end', () => this.channels[index].seekPercent(0));
 
         const reader = new FileReader();
-        filename = "/sound/"+channel.wave;
+        filename = "./sound/"+channel.wave;
         fetch(filename)
           .then(resp => resp.blob())
           .then(blob => {
@@ -400,7 +400,7 @@ export default class Example extends React.Component {
 
         //this.emitter.on('stop', () => this.channels[index].seekPercent(0));
         this.emitter.on('err', (c) => {
-          filename = "/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
+          filename = "./sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
           fetch(filename)
             .then(resp => resp.blob())
             .then(blob => {
@@ -436,7 +436,7 @@ export default class Example extends React.Component {
           this.channels[index].seekPercent(0);
           this.channels[index].pause();
           
-          filename = "/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
+          filename = "./sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
           fetch(filename)
             .then(resp => resp.blob())
             .then(blob => {
@@ -480,7 +480,7 @@ export default class Example extends React.Component {
         })
 
         const reader = new FileReader();
-        filename = "/sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
+        filename = "./sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
         fetch(filename)
           .then(resp => resp.blob())
           .then(blob => {
@@ -569,7 +569,7 @@ export default class Example extends React.Component {
             </div>
           }
           <div className="footer">
-          <p>Copyright © <a href="http://lathrum.com/dylan/portfolio/" target="_blank">Dylan Lathrum</a>, 2019.</p>
+          <p>Copyright © <a href="http://lathrum.com/dylan/portfolio/" target="_blank" rel="noopener noreferrer">Dylan Lathrum</a>, 2019.</p>
           <p>All sounds and soundscripts belong to Valve Software.</p>
           </div>
         </div>

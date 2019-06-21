@@ -23,11 +23,13 @@ Source-Soundscapes is a website that plays [source engine soundscapes](https://d
 
 ![Screenshot from v1.0.0](./demo.jpg "Screenshot from v1.0.0")
 
-## Installation
+## How to run
 
-Simply clone the repo, install all dependencies with `yarn install`, and run `yarn start`.
+Either grab the latest compile release from the [releases](https://github.com/Dylancyclone/source-soundscapes/releases), or grab the `sounds.7z` archive from the [releases](https://github.com/Dylancyclone/source-soundscapes/releases).
 
-To compile an optimized build, run `yarn build`. This process might take awhile because it needs to copy all the sounds from the `./public` folder to the `./build` folder. You might be able to speed this up by manually copying the files, but I recomend just waiting.
+To just run the website, clone the repo, install all dependencies with `yarn install`, extract the sounds from `sounds.7z` into `./public/sound/`, and run `yarn start`.
+
+To compile an optimized build, run `yarn build`. If the sounds have been copied into the `./public` folder, this process might take awhile because it needs to copy all the sounds to the `./build` folder. If you haven't yet extracted the files, you can just compile the optimized build first and then extract the sounds into `./build/sound/`. This will be faster than waiting for node to copy the files if you just want the compiled build.
 
 ## Possible future updates
 

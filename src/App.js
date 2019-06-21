@@ -22,6 +22,8 @@ export default class Example extends React.Component {
     //this.readTextFile(process.env.PUBLIC_URL + '/soundscapes/hl2/soundscapes_town.txt');
     //console.log(Items)
 
+    previousVolume = JSON.parse(localStorage.getItem('SourceSoundscapes.volume'))||1;
+
     this.state = {
       games: [],
       soundscapes: [],
@@ -232,6 +234,7 @@ export default class Example extends React.Component {
 
   handleVolumeUpdate = (e) => {
     this.channels.forEach((channel) => {channel.volume = channel.volume / previousVolume * parseFloat(e.target.value);})
+    localStorage.setItem('SourceSoundscapes.volume', e.target.value);
     previousVolume = e.target.value;
   }
 
@@ -558,7 +561,7 @@ export default class Example extends React.Component {
             />
             <div className="slidecontainer">
               <p>Volume</p>
-              <input type="range" min="0.01" max="2" defaultValue="1" onChange={(e) => {this.handleVolumeUpdate(e)}} step="0.01" className="slider"/>
+              <input type="range" min="0.01" max="2" defaultValue={previousVolume} onChange={(e) => {this.handleVolumeUpdate(e)}} step="0.01" className="slider"/>
             </div>
           </div>
           {this.state.currentGame &&

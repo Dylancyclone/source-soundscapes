@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+#Sounds
+sounds.7z
+/public/sound/*
+!/public/sound/extract_sounds_here

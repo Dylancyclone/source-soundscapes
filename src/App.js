@@ -29,6 +29,7 @@ export default class Example extends React.Component {
       soundscapes: [],
       currentSoundscape: '',
       currentGame: '',
+      paused: false,
     };
 
     this.channels = [];
@@ -38,7 +39,9 @@ export default class Example extends React.Component {
 
 		this.handleFavorite = this.handleFavorite.bind(this);
 		this.handleUnfavorite = this.handleUnfavorite.bind(this);
-		this.handleStop = this.handleStop.bind(this);
+		this.handleSoundscapeSelected = this.handleSoundscapeSelected.bind(this);
+		this.handlePause = this.handlePause.bind(this);
+		this.handlePlay = this.handlePlay.bind(this);
   }
 
   async componentDidMount() {
@@ -194,25 +197,6 @@ export default class Example extends React.Component {
     return -1;    // No matching closing parenthesis
   }
 
-  handleSoundscapeSelected = (soundscape) => {
-    var soundscapes = this.state.soundscapes;
-    if (this.favorites !== null && this.favorites.length !== 0)
-    {
-      soundscapes["FAVORITES"] = Object.assign.apply(null, this.favorites.map(x =>({[x]:0})))
-    }
-    else if (this.favorites !== null && this.favorites.length === 0)
-    {
-      soundscapes["FAVORITES"] = [];
-    }
-
-    this.setState({ soundscapes:soundscapes, currentSoundscape: soundscape});
-    console.log("Selected Soundscape:", soundscape)
-    this.channels.forEach((channel) => {channel.pause();})
-    this.timeouts.forEach((timeout) => {clearTimeout(timeout);})
-    this.channels = [];
-    this.timeouts = [];
-  }
-
   handleGameSelected = (game) => {
     var soundscapes = this.state.soundscapes;
     if (this.favorites !== null && this.favorites.length !== 0)
@@ -232,18 +216,43 @@ export default class Example extends React.Component {
     this.timeouts = [];
   }
 
+  handleSoundscapeSelected = (soundscape) => {
+    var soundscapes = this.state.soundscapes;
+    if (this.favorites !== null && this.favorites.length !== 0)
+    {
+      soundscapes["FAVORITES"] = Object.assign.apply(null, this.favorites.map(x =>({[x]:0})))
+    }
+    else if (this.favorites !== null && this.favorites.length === 0)
+    {
+      soundscapes["FAVORITES"] = [];
+    }
+
+    this.setState({ soundscapes:soundscapes, currentSoundscape: soundscape, paused: false });
+    console.log("Selected Soundscape: ", soundscape)
+    this.channels.forEach((channel) => {channel.pause();})
+    this.timeouts.forEach((timeout) => {clearTimeout(timeout);})
+    this.channels = [];
+    this.timeouts = [];
+  }
+
   handleVolumeUpdate = (e) => {
     this.channels.forEach((channel) => {channel.volume = channel.volume / previousVolume * parseFloat(e.target.value);})
     localStorage.setItem('SourceSoundscapes.volume', e.target.value);
     previousVolume = e.target.value;
   }
 
-  handleStop() {
-    console.log("Stopped playback")
+  handlePause() {
+    //this.setState({ paused: true }); //Doing this will cause a state update, making the sounds play again
+    console.log("Pausing playback")
     this.channels.forEach((channel) => {channel.pause();})
     this.timeouts.forEach((timeout) => {clearTimeout(timeout);})
     this.channels = [];
     this.timeouts = [];
+  }
+
+  handlePlay() {
+    console.log("Resuming playback")
+    this.handleSoundscapeSelected(this.state.currentSoundscape);
   }
 
   handleFavorite() {
@@ -327,17 +336,18 @@ export default class Example extends React.Component {
 
         const reader = new FileReader();
         filename = "./sound/"+channel.wave;
-        fetch(filename)
+        fetch(filename.toLowerCase())
           .then(resp => resp.blob())
           .then(blob => {
             reader.readAsArrayBuffer(blob);
             reader.onload = async event => {
               let buffer;
               try {
-                  buffer = await this.channels[index].decodeAudioData(event.target.result);
+                buffer = await this.channels[index].decodeAudioData(event.target.result);
               } catch (err) {
-                console.warn("Error: " + err + ", with file: " + filename + ". Does file exist?")
-                  return;
+                console.warn("Error: " + err + ", with file: " + filename + ". Does file exist?");
+                this.refs[JSON.stringify(channel)].classList.add('error');
+                return;
               }
 
               this.channels[index].setBuffer(buffer);
@@ -345,7 +355,7 @@ export default class Example extends React.Component {
             };
           });
           text.push(
-            <div key={JSON.stringify(channel)}>
+            <div key={JSON.stringify(channel)} ref={JSON.stringify(channel)}>
               <p className='channelType'>Loop:</p>
               <p className='channelDetail'>{channel.wave.split('/')[channel.wave.split('/').length-1].split('.')[0]}</p>
             </div>
@@ -404,7 +414,7 @@ export default class Example extends React.Component {
         //this.emitter.on('stop', () => this.channels[index].seekPercent(0));
         this.emitter.on('err', (c) => {
           filename = "./sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
-          fetch(filename)
+          fetch(filename.toLowerCase())
             .then(resp => resp.blob())
             .then(blob => {
               reader.readAsArrayBuffer(blob);
@@ -417,6 +427,7 @@ export default class Example extends React.Component {
                   if (c>9)
                   {
                     console.error("Error: Channel keeps failing, stopping attempts.")
+                    this.refs[JSON.stringify(channel)].classList.add('error');
                   }
                   else
                   {
@@ -440,7 +451,7 @@ export default class Example extends React.Component {
           this.channels[index].pause();
           
           filename = "./sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
-          fetch(filename)
+          fetch(filename.toLowerCase())
             .then(resp => resp.blob())
             .then(blob => {
               reader.readAsArrayBuffer(blob);
@@ -484,7 +495,7 @@ export default class Example extends React.Component {
 
         const reader = new FileReader();
         filename = "./sound/"+channel.rndwave[Math.floor(Math.random() * channel.rndwave.length)];
-        fetch(filename)
+        fetch(filename.toLowerCase())
           .then(resp => resp.blob())
           .then(blob => {
             reader.readAsArrayBuffer(blob);
@@ -506,7 +517,7 @@ export default class Example extends React.Component {
             };
           });
           text.push(
-            <div key={JSON.stringify(channel)}>
+            <div key={JSON.stringify(channel)} ref={JSON.stringify(channel)}>
               <p className='channelType'>{parseFloat(channel.time.split(',')[0])} - {parseFloat(channel.time.split(',')[1])}s:</p>
               <p className='channelDetail'>{channel.rndwave.map((e) =>{return e.split('/')[e.split('/').length-1].split('.')[0]+", "})}</p>
             </div>
@@ -554,10 +565,12 @@ export default class Example extends React.Component {
             />
             <Controls
               favorites={this.favorites}
+              paused={this.state.paused}
               selectedSoundscape={this.state.currentSoundscape}
               handleFavorite={this.handleFavorite}
               handleUnfavorite={this.handleUnfavorite}
-              handleStop={this.handleStop}
+              handlePause={this.handlePause}
+              handlePlay={this.handlePlay}
             />
             <div className="slidecontainer">
               <p>Volume</p>

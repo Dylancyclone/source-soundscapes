@@ -3,10 +3,12 @@
 If (re)installing node_modules, copy `node_modules.babel-plugin-wildcard.lib.index.js` to `node_modules/babel-plugin-wildcard/lib/index.js` and replace the file that is there!
 This depends on a PR made by `louislva` [here](https://github.com/vihanb/babel-plugin-wildcard/pull/33) which has not yet been merged to master. If the fork is added to the project however, npm (for some reason) fails to compile the plugin into the file found in the lib directory. As such, the new code must be put in manually.
 
-
 # Source-Soundscapes
 
+[DEMO](http://lathrum.com/dylan/source-soundscapes/)
+
 Source-Soundscapes is a website that plays [source engine soundscapes](https://developer.valvesoftware.com/wiki/Soundscape) in a webbrowser. The app currently supports over *2300* soundscapes from the following games:
+
 - Alien Swarm
 - Counter-Strike: Global Offensive
 - Counter-Strike: Source
@@ -25,7 +27,7 @@ Source-Soundscapes is a website that plays [source engine soundscapes](https://d
 
 ## How to run
 
-Either grab the latest compile release from the [releases](https://github.com/Dylancyclone/source-soundscapes/releases), or grab the `sounds.7z` archive from the [releases](https://github.com/Dylancyclone/source-soundscapes/releases).
+Either grab the latest compile release from the [releases](https://github.com/Dylancyclone/source-soundscapes/releases), or grab the `sounds.7z` archive from the [releases](https://github.com/Dylancyclone/source-soundscapes/releases/tag/v1.1.0).
 
 To just run the website, clone the repo, install all dependencies with `yarn install`, extract the sounds from `sounds.7z` into `./public/sound/`, and run `yarn start`.
 

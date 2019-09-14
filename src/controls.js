@@ -5,7 +5,10 @@ export default class Controls extends React.Component {
   constructor(props) {
     super(props);
     
-    this.state = {favorited:this.props.favorites.includes(this.props.selectedSoundscape)};
+    this.state = {
+      favorited:this.props.favorites.includes(this.props.selectedSoundscape),
+      paused:this.props.paused,
+    };
   }
 
   componentDidUpdate(prevProps) {
@@ -15,6 +18,9 @@ export default class Controls extends React.Component {
         this.setState({favorited:this.props.favorites.includes(this.props.selectedSoundscape)});
       }
     }
+    if(prevProps.selectedSoundscape!==this.props.selectedSoundscape){
+      this.setState({paused:this.props.paused});
+    }
   }
 
   render() {
@@ -22,7 +28,9 @@ export default class Controls extends React.Component {
       <div className="controls">
         {!this.state.favorited && <p className="star-inactive" onClick={() => this.handleFavorite()}>☆</p>}
         {this.state.favorited && <p className="star-active" onClick={() => this.handleUnfavorite()}>★</p>}
-        <p className="stop" onClick={() => this.props.handleStop()}>⯃</p>
+
+        {!this.state.paused && <p className="pause" onClick={() => this.handlePause()}>❚❚</p>}
+        {this.state.paused && <p className="play" onClick={() => this.handlePlay()}>▶</p>}
       </div>
     );
   }
@@ -40,6 +48,22 @@ export default class Controls extends React.Component {
     {
       this.setState({favorited: false})
       this.props.handleUnfavorite();
+    }
+  }
+
+  handlePause() {
+    if(this.props.selectedSoundscape !== '')
+    {
+      this.setState({paused: true})
+      this.props.handlePause();
+    }
+  }
+
+  handlePlay() {
+    if(this.props.selectedSoundscape !== '')
+    {
+      this.setState({paused: false})
+      this.props.handlePlay();
     }
   }
 }

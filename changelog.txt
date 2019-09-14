@@ -1,0 +1,14 @@
+09/13/2019 1.2.0:
++Added better error reporting, now channels that fail to play will be highlighted in red rather just quietly throwing an error in the console
++Replaced stop button with pause/play button
+*Replaced a HL2:ep2 background with one that does not feature NPCs, I didn't realize how much it stood out from the rest.
+*Fixed a bunch of sounds not playing
+
+06/21/2019 1.1.0:
++Added persistance to volume control
+*Completely reworked file system
+*Pruned unused sounds
+*Dramatically reduced repo size
+
+06/14/2019 1.0.0:
++Initial version

@@ -161,6 +161,7 @@
   padding-right: 15px;
 }
 .controls p {
+  line-height: 1;
   margin: 0px;
   cursor: pointer;
 }
@@ -173,9 +174,16 @@
   color: #fafafa;
 }
 
-.stop {
+.pause {
   color: #f44336;
-  line-height: 1.5;
+  text-align: center;
+  width:38px;
+}
+
+.play {
+  color: #4CAF50;
+  text-align: center;
+  width:38px;
 }
 
 .content {
@@ -214,6 +222,10 @@
 .channelDetail {
   padding-left: 10px;
   display: inline-block;
+}
+
+.error {
+  color: #f44336;
 }
 
 .footer {

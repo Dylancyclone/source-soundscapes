@@ -96,7 +96,7 @@ export default class AudioPlayer {
                     }
                 }
                 if (this.loop) return numFrames;
-                return Math.min(numFrames, l.length - position + BUFFER_SIZE*5); //BUFFER_SIZE*5 Might mess up some timings?
+                return Math.min(numFrames, l.length - position); // Using `l.length - position + BUFFER_SIZE*5` messes up some timings after some new audio api update I think
             },
         };
         this.simpleFilter = new SimpleFilter(this.source, this.soundTouch);

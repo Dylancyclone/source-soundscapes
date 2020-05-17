@@ -1,3 +1,6 @@
+05/17/2020 1.2.1:
+*Fixed playrandom sounds clicking on start/stop
+
 09/13/2019 1.2.0:
 +Added better error reporting, now channels that fail to play will be highlighted in red rather just quietly throwing an error in the console
 +Replaced stop button with pause/play button
@@ -5,7 +8,7 @@
 *Fixed a bunch of sounds not playing
 
 06/21/2019 1.1.0:
-+Added persistance to volume control
++Added persistence to volume control
 *Completely reworked file system
 *Pruned unused sounds
 *Dramatically reduced repo size
